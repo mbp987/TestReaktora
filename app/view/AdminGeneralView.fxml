@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="admin_general_view" maxHeight="-Infinity"
 	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
@@ -23,5 +28,84 @@
 		<Button fx:id="btn_showUsers" layoutX="494.0" layoutY="44.0"
 			mnemonicParsing="false" onMouseClicked="#actionShowUsers" prefWidth="150.0"
 			text="Pokaż kursantów" />
+		<TableView fx:id="tbl_users" editable="true" layoutX="14.0"
+			layoutY="154.0" prefHeight="421.0" prefWidth="901.0">
+			<columns>
+				<TableColumn fx:id="col_login" editable="false"
+					prefWidth="139.0" text="Login" />
+				<TableColumn fx:id="col_haslo" prefWidth="122.0" text="Hasło" />
+				<TableColumn fx:id="col_imie" prefWidth="102.0" text="Imię" />
+				<TableColumn fx:id="col_nazwisko" prefWidth="176.0"
+					text="Nazwisko" />
+				<TableColumn fx:id="col_grupa" prefWidth="83.0" text="Grupa" />
+				<TableColumn fx:id="col_rola" prefWidth="115.0" text="Rola" />
+				<TableColumn fx:id="col_timestamp" prefWidth="163.0"
+					text="Ostatnia zmiana" />
+			</columns>
+		</TableView>
+		<Button fx:id="btn_commit" layoutX="654.0" layoutY="44.0"
+			mnemonicParsing="false" onMouseClicked="#actionCommit" prefWidth="150.0"
+			text="Zapisz zmiany" />
+		<AnchorPane fx:id="tbl_edit" layoutX="12.0" layoutY="72.0"
+			prefHeight="77.0" prefWidth="901.0">
+			<children>
+				<TextField fx:id="tf_login" layoutY="37.0" promptText="Podaj login" />
+				<TextField fx:id="tf_haslo" layoutX="163.0" layoutY="39.0"
+					promptText="Podaj hasło" />
+				<TextField fx:id="tf_imie" layoutX="321.0" layoutY="39.0"
+					promptText="Podaj imię" />
+				<TextField fx:id="tf_nazwisko" layoutX="482.0" layoutY="39.0"
+					promptText="Podaj nazwisko" />
+				<TextField fx:id="tf_grupa" layoutX="642.0" layoutY="39.0"
+					prefHeight="25.0" prefWidth="70.0" promptText="Grupa" />
+				<ComboBox fx:id="combo_rola" layoutX="717.0" layoutY="39.0"
+					prefWidth="80.0" />
+				<Label alignment="CENTER" layoutY="15.0" prefHeight="20.0"
+					prefWidth="149.0" text="Login" textAlignment="CENTER">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="163.0" layoutY="15.0"
+					prefHeight="20.0" prefWidth="149.0" text="Hasło">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="321.0" layoutY="15.0"
+					prefHeight="20.0" prefWidth="149.0" text="Imię">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="482.0" layoutY="15.0"
+					prefHeight="20.0" prefWidth="149.0" text="Nazwisko">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="642.0" layoutY="15.0"
+					prefHeight="20.0" prefWidth="70.0" text="Grupa">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="722.0" layoutY="15.0"
+					prefHeight="20.0" prefWidth="70.0" text="Rola">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<Button fx:id="btn_editSave" layoutX="803.0" layoutY="39.0"
+					mnemonicParsing="false" onMouseClicked="#actionEditSave" prefWidth="92.0"
+					text="Zapisz zmiany" visible="false" />
+				<Button fx:id="btn_newUser" layoutX="803.0" layoutY="39.0"
+					mnemonicParsing="false" onMouseClicked="#actionSaveNew" prefWidth="92.0"
+					text="Dodaj nowy" visible="false" />
+				<Button fx:id="btn_editCancel" layoutX="803.0" layoutY="6.0"
+					mnemonicParsing="false" onMouseClicked="#actionEditCancel"
+					prefWidth="92.0" text="Anuluj" />
+			</children>
+		</AnchorPane>
 	</children>
 </AnchorPane>

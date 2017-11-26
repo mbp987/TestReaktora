@@ -1,7 +1,7 @@
 package app.model;
 
 public class Users {
-	
+
 	private String login;
 	private String haslo;
 	private String imie;
@@ -9,10 +9,7 @@ public class Users {
 	private String grupa;
 	private String rola;
 	private String czas;
-	
-	
-	
-	
+
 	public Users(String login, String haslo, String imie, String nazwisko, String grupa, String rola, String czas) {
 		super();
 		this.login = login;
@@ -23,51 +20,62 @@ public class Users {
 		this.rola = rola;
 		this.czas = czas;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getHaslo() {
 		return haslo;
 	}
+
 	public void setHaslo(String haslo) {
 		this.haslo = haslo;
 	}
+
 	public String getImie() {
 		return imie;
 	}
+
 	public void setImie(String imie) {
 		this.imie = imie;
 	}
+
 	public String getNazwisko() {
 		return nazwisko;
 	}
+
 	public void setNazwisko(String nazwisko) {
 		this.nazwisko = nazwisko;
 	}
+
 	public String getGrupa() {
 		return grupa;
 	}
+
 	public void setGrupa(String grupa) {
 		this.grupa = grupa;
 	}
+
 	public String getRola() {
 		return rola;
 	}
+
 	public void setRola(String rola) {
 		this.rola = rola;
 	}
+
 	public String getCzas() {
 		return czas;
 	}
+
 	public void setCzas(String czas) {
 		this.czas = czas;
 	}
-	
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -82,6 +90,7 @@ public class Users {
 		result = prime * result + ((rola == null) ? 0 : rola.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -128,6 +137,5 @@ public class Users {
 			return false;
 		return true;
 	}
-	
 
 }
