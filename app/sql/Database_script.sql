@@ -1,7 +1,7 @@
 drop database if exists testreaktora;
-create database testreaktora;
+create database testreaktora DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 use testreaktora;
-
+#drop database testreaktora;
 
 drop user if exists usertestreaktora;
 create user usertestreaktora identified by 'strongPasswordWouldBeNice';
@@ -19,7 +19,7 @@ CREATE TABLE uzytkownicy (
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-#select * from uzytkownicy;
+select * from uzytkownicy;
 
 CREATE TABLE pytania (
     id_pytania INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,6 +44,13 @@ CREATE TABLE wyniki (
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (login)
         REFERENCES uzytkownicy (login)
-)
+);
 
 #select * from wyniki;
+
+insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('admin@pwn.pl', 'admin123', 'Bożena', 'Jamka-Czyż', NULL, 'admin');
+insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('a.adamska@wp.pl', 'adamska', 'Anna', 'Adamska', 'D2-2017', 'user');
+insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('b.baranski@wp.pl', 'baranski', 'Bartosz', 'Baranski', 'W1-2017', 'user');
+
+
+
