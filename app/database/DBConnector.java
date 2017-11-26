@@ -10,7 +10,7 @@ public class DBConnector {
 
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafx3?useSSL=false", "kgj", "kgj");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testreaktora?useSSL=false", "usertestreaktora", "strongPasswordWouldBeNice");
 
 		} catch (SQLException ex) {
 			throw new RuntimeException(ex);
