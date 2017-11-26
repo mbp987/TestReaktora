@@ -19,7 +19,7 @@ CREATE TABLE uzytkownicy (
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-select * from uzytkownicy;
+#select * from uzytkownicy;
 
 CREATE TABLE pytania (
     id_pytania INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,6 +51,9 @@ CREATE TABLE wyniki (
 insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('admin@pwn.pl', 'admin123', 'Bożena', 'Jamka-Czyż', NULL, 'admin');
 insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('a.adamska@wp.pl', 'adamska', 'Anna', 'Adamska', 'D2-2017', 'user');
 insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('b.baranski@wp.pl', 'baranski', 'Bartosz', 'Baranski', 'W1-2017', 'user');
+
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu: print(int("22") + int("22")) ?', '22', '44', '444', '2222', 'odp2');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Wzkaż krotkę:', '[a,b,c]', '(a,b,c)', '{a,b,c}', "{'a','b','c'}", 'odp2');
 
 
 
