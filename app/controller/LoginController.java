@@ -43,32 +43,47 @@ public class LoginController {
 	static boolean flag = true;
 	static String name;
 	Connection db;
-	static String role;
-	
+	static String rola;
+
 	@FXML
 	void buttonLogin(MouseEvent event) throws SQLException {
 		Statement stmt = db.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT role FROM login WHERE login = '" + tf_login.getText() + "' AND pass = '" + pf_pass.getText() + "';");
+		ResultSet rs = stmt.executeQuery("SELECT rola FROM uzytkownicy WHERE login = '" + tf_login.getText() + "' AND haslo = '" + pf_pass.getText() + "';");
+		System.out.println("SELECT rola FROM uzytkownicy WHERE login = '" + tf_login.getText() + "' AND haslo = '" + pf_pass.getText() + "';");
 		if (rs.next()) {
-			role = rs.getString("role");
+			rola = rs.getString("rola");
 			name = tf_login.getText();
-			try {
-				Stage stage = new Stage();
-				Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/TableView.fxml"));
-				Scene scene = new Scene(parent);
-				stage.setScene(scene);
-				stage.setTitle("Login completed");
-				stage.show();
-				((Node) (event.getSource())).getScene().getWindow().hide();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (rola.equals("admin")) {
+				try {
+					Stage stage = new Stage();
+					Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/AdminGeneralView.fxml"));
+					Scene scene = new Scene(parent);
+					stage.setScene(scene);
+					stage.setTitle("Panel administracyjny");
+					stage.show();
+					((Node) (event.getSource())).getScene().getWindow().hide();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (rola.equals("user")) {
+				try {
+					Stage stage = new Stage();
+					Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/UserGeneralView.fxml"));
+					Scene scene = new Scene(parent);
+					stage.setScene(scene);
+					stage.setTitle("Panel u¿ytkownika");
+					stage.show();
+					((Node) (event.getSource())).getScene().getWindow().hide();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				Alert a_help = new Alert(AlertType.ERROR);
+				a_help.setHeaderText("B³¹d logowania");
+				a_help.setContentText("B³êdne has³o lub login");
+				a_help.setTitle("Nale¿y podaæ poprawne dane logowania");
+				a_help.showAndWait();
 			}
-		} else {
-			Alert a_help = new Alert(AlertType.ERROR);
-			a_help.setHeaderText("B³¹d logowania");
-			a_help.setContentText("B³êdne has³o lub login");
-			a_help.setTitle("Nale¿y podaæ poprawne dane logowania");
-			a_help.showAndWait();
 		}
 	}
 
@@ -91,7 +106,7 @@ public class LoginController {
 			btn_show.setText("show");
 		}
 	}
-	
+
 	public void initialize() {
 		db = DBConnector.getConnection();
 	}
