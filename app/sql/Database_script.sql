@@ -40,7 +40,7 @@ CREATE TABLE wyniki (
     login VARCHAR(30),
     jezyk VARCHAR(10),
     liczba_pytan INT,
-    wynik INT,
+    wynik FLOAT,
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (login)
         REFERENCES uzytkownicy (login)

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import app.database.DBConnector;
 import app.model.Users;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -30,6 +32,18 @@ public class AdminController {
 	private AnchorPane admin_general_view;
 
 	@FXML
+	private Button btn_users;
+
+	@FXML
+	private Button btn_questions;
+
+	@FXML
+	private Button btn_results;
+
+	@FXML
+	private AnchorPane view_users;
+
+	@FXML
 	private Button btn_new;
 
 	@FXML
@@ -43,6 +57,18 @@ public class AdminController {
 
 	@FXML
 	private Button btn_commit;
+
+	@FXML
+	private Button btn_filterUsers;
+
+	@FXML
+	private Label lbl_addUser;
+
+	@FXML
+	private Label lbl_editUser;
+
+	@FXML
+	private Label lbl_filterUser;
 
 	@FXML
 	private TableView<Users> tbl_users;
@@ -98,13 +124,63 @@ public class AdminController {
 	@FXML
 	private Button btn_newUser;
 
+	@FXML
+	private AnchorPane tbl_filter;
+
+	@FXML
+	private TextField tf_loginFiltr;
+
+	@FXML
+	private TextField tf_hasloFiltr;
+
+	@FXML
+	private TextField tf_imieFiltr;
+
+	@FXML
+	private TextField tf_nazwiskoFiltr;
+
+	@FXML
+	private TextField tf_grupaFiltr;
+
+	@FXML
+	private ComboBox<String> combo_rolaFiltr;
+
+	@FXML
+	private Button btn_filter;
+
+	@FXML
+	private Button btn_filterCancel;
+
 	// Dodane spoza scheletona
 	ObservableList<String> rola = FXCollections.observableArrayList("user", "admin");
 	Connection conn = DBConnector.getConnection();
 	public ObservableList<Users> data;
 
+	// G³ówne menu:
+	@FXML
+	void actionUsers(MouseEvent event) {
+		view_users.setVisible(true);
+
+	}
+
+	@FXML
+	void actionQuestions(MouseEvent event) {
+		view_users.setVisible(false);
+
+	}
+
+	@FXML
+	void actionResults(MouseEvent event) {
+		view_users.setVisible(false);
+
+	}
+
+	// Wewn¹trz anchor_users:
 	@FXML
 	void actionDeleteUser(MouseEvent event) throws SQLException {
+		lbl_filterUser.setVisible(false);
+		lbl_addUser.setVisible(false);
+		lbl_editUser.setVisible(false);
 		Users selectedItem = tbl_users.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			String login = selectedItem.getLogin();
@@ -117,6 +193,12 @@ public class AdminController {
 
 	@FXML
 	void actionEditUser(MouseEvent event) {
+		tbl_filter.setVisible(false);
+		lbl_filterUser.setVisible(false);
+		lbl_addUser.setVisible(false);
+		lbl_editUser.setVisible(true);
+		btn_editSave.setVisible(true);
+		btn_newUser.setVisible(false);
 		Users selectedItem = tbl_users.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			tbl_edit.setVisible(true);
@@ -151,7 +233,11 @@ public class AdminController {
 
 	@FXML
 	void actionNewUser(MouseEvent event) throws SQLException {
+		tbl_filter.setVisible(false);
 		tbl_edit.setVisible(true);
+		lbl_filterUser.setVisible(false);
+		lbl_addUser.setVisible(true);
+		lbl_editUser.setVisible(false);
 		btn_editSave.setVisible(false);
 		btn_newUser.setVisible(true);
 		tf_login.setDisable(false);
@@ -272,6 +358,9 @@ public class AdminController {
 
 	@FXML
 	void actionShowUsers(MouseEvent event) throws SQLException {
+		lbl_filterUser.setVisible(false);
+		lbl_addUser.setVisible(false);
+		lbl_editUser.setVisible(false);
 		tbl_edit.setVisible(false);
 		data = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery("select * from uzytkownicy");
@@ -280,13 +369,92 @@ public class AdminController {
 		}
 		tbl_users.setItems(null);
 		tbl_users.setItems(data);
+	}
 
+	@FXML
+	void actionFilterUsers(MouseEvent event) {
+		tbl_edit.setVisible(false);
+		tbl_filter.setVisible(true);
+		lbl_filterUser.setVisible(true);
+		lbl_addUser.setVisible(false);
+		lbl_editUser.setVisible(false);
+	}
+
+	@FXML
+	void actionFilter(MouseEvent event) throws SQLException {
+		PreparedStatement pstm = null;
+		data = FXCollections.observableArrayList();
+		String login = "";
+		String haslo = "";
+		String imie = "";
+		String nazwisko = "";
+		String grupa = "";
+		String rola = "";
+
+		if (!Objects.isNull(tf_loginFiltr)) {
+			login = tf_loginFiltr.getText();
+		}
+		if (!Objects.isNull(tf_hasloFiltr)) {
+			haslo = tf_hasloFiltr.getText();
+		}
+		if (!Objects.isNull(tf_imieFiltr)) {
+			imie = tf_imieFiltr.getText();
+		}
+		if (!Objects.isNull(tf_nazwiskoFiltr)) {
+			nazwisko = tf_nazwiskoFiltr.getText();
+		}
+		if (!Objects.isNull(tf_grupaFiltr)) {
+			grupa = tf_grupaFiltr.getText();
+		}
+		if (combo_rolaFiltr.getValue() != null) {
+			rola = combo_rolaFiltr.getValue();
+		}
+		// Budowa zapytania do filtrowania u¿ytkowników:
+		String sql = "SELECT * FROM uzytkownicy WHERE 1 = 1";
+		if (!login.isEmpty()) {
+			sql += " AND login = '" + login + "'";
+		}
+		if (!haslo.isEmpty()) {
+			sql += " AND haslo = '" + haslo + "'";
+		}
+		if (!imie.isEmpty()) {
+			sql += " AND imie = '" + imie + "'";
+		}
+		if (!nazwisko.isEmpty()) {
+			sql += " AND nazwisko = '" + nazwisko + "'";
+		}
+		if (!grupa.isEmpty()) {
+			sql += " AND grupa = '" + grupa + "'";
+		}
+		if (!rola.isEmpty()) {
+			sql += " AND rola = '" + rola + "'";
+		}
+		System.out.println(sql);
+		pstm = conn.prepareStatement(sql);
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		while (rs.next()) {
+			data.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+		}
+		tbl_users.setItems(null);
+		tbl_users.setItems(data);
+	}
+
+	@FXML
+	void actionFilterCancel(MouseEvent event) throws SQLException {
+		tf_loginFiltr.clear();
+		tf_hasloFiltr.clear();
+		tf_imieFiltr.clear();
+		tf_nazwiskoFiltr.clear();
+		tf_grupaFiltr.clear();
+		combo_rolaFiltr.setValue(null);
+		actionShowUsers(event);
 	}
 
 	public void initialize() {
 		System.out.println("initialize");
 		tbl_edit.setVisible(false);
 		combo_rola.setItems(rola);
+		combo_rolaFiltr.setItems(rola);
 		col_login.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
 		col_haslo.setCellValueFactory(new PropertyValueFactory<Users, String>("haslo"));
 		col_haslo.setCellFactory(TextFieldTableCell.forTableColumn());
