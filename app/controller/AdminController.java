@@ -213,7 +213,7 @@ public class AdminController {
 	private TextField tf_questionID;
 
 	@FXML
-	private TextField tf_questionLang;
+	private ComboBox<String> combo_questionLang;
 
 	@FXML
 	private TextArea ta_questionText;
@@ -265,6 +265,7 @@ public class AdminController {
 
 	// Dodane spoza scheletona
 	ObservableList<String> rola = FXCollections.observableArrayList("user", "admin");
+	ObservableList<String> lang = FXCollections.observableArrayList("BD", "Git", "Python", "FE", "Java", "Spring");
 	Connection conn = DBConnector.getConnection();
 	public ObservableList<Users> usersList;
 	public ObservableList<Questions> questionsList;
@@ -590,7 +591,7 @@ public class AdminController {
 		btn_questionEditSave.setVisible(false);
 		btn_newQuestion.setVisible(true);
 		tf_questionID.clear();
-		tf_questionLang.clear();
+		combo_questionLang.setValue(null);
 		ta_questionText.clear();
 		ta_answear1.clear();
 		ta_answear2.clear();
@@ -602,8 +603,98 @@ public class AdminController {
 
 	// Metoda zapisuj¹ca pytanie do bazy
 	@FXML
-	void actionQuestionSave(ActionEvent event) {
-		
+	void actionQuestionSave(ActionEvent event) throws SQLException {
+		String jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp;
+		while (true) {
+			if (combo_questionLang.getValue() != null) {
+				jezyk = combo_questionLang.getValue();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie wpisa³eœ jêzyka");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			if (ta_questionText.getText() != null) {
+				tresc = ta_questionText.getText();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie wpisa³eœ treœci pytania");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			if (ta_answear1.getText() != null) {
+				odp1 = ta_answear1.getText();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie poda³eœ pierwszej odpowiedzi");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			if (ta_answear2.getText() != null) {
+				odp2 = ta_answear2.getText();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie poda³eœ drugiej odpowiedzi");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			if (ta_answear3.getText() != null) {
+				odp3 = ta_answear3.getText();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie poda³eœ trzeciej odpowiedzi");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			if (ta_answear4.getText() != null) {
+				odp4 = ta_answear4.getText();
+			} else {
+				Alert view_error = new Alert(AlertType.ERROR);
+				view_error.setContentText("Nie poda³eœ czwartej odpowiedzi");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
+				view_error.showAndWait();
+				break;
+			}
+			// Pobranie prawid³owej odpowiedzi z radio button'ów
+			{
+				if (!rb_answear1.equals("")) {
+					prawidlowa_odp = ta_answear1.getText();
+				} else if (!rb_answear2.equals("")) {
+					prawidlowa_odp = ta_answear2.getText();
+				} else if (!rb_answear3.equals("")) {
+					prawidlowa_odp = ta_answear3.getText();
+				} else if (!rb_answear4.equals("")) {
+					prawidlowa_odp = ta_answear4.getText();
+				}
+				else {
+					Alert view_error = new Alert(AlertType.ERROR);
+					view_error.setContentText("Nie wybra³eœ ¿adnej prawid³owej odpowiedzi");
+					view_error.setHeaderText("B³¹d!");
+					view_error.setTitle("Okno b³êdu");
+					view_error.showAndWait();
+					break;
+				}
+			}
+			String sql = "INSERT INTO pytania (jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) VALUES ('" + jezyk + "', '" + tresc
+					+ "', '" + odp1 + "', '" + odp2 + "', '" + odp3 + "', '" + odp4 + "', '" + prawidlowa_odp + "')";
+			System.out.println(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			actionShowQuestions(event);
+			actionAddQuestion(event);
+			break;
+		}
 	}
 
 	// Metoda uruchamiaj¹ca panel edycji pytania zaznaczonego w tabeli
@@ -642,6 +733,7 @@ public class AdminController {
 		tbl_edit.setVisible(false);
 		combo_rola.setItems(rola);
 		combo_rolaFiltr.setItems(rola);
+		combo_questionLang.setItems(lang);
 		col_login.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
 		col_haslo.setCellValueFactory(new PropertyValueFactory<Users, String>("haslo"));
 		col_haslo.setCellFactory(TextFieldTableCell.forTableColumn());
