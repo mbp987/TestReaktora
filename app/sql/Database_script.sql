@@ -29,7 +29,7 @@ CREATE TABLE pytania (
     odp2 TEXT,
     odp3 TEXT,
     odp4 TEXT,
-    prawidlowa_odp VARCHAR(5),
+    prawidlowa_odp TEXT,
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -52,8 +52,10 @@ insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('admi
 insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('a.adamska@wp.pl', 'adamska', 'Anna', 'Adamska', 'D2-2017', 'user');
 insert into uzytkownicy(login, haslo, imie, nazwisko, grupa, rola) values ('b.baranski@wp.pl', 'baranski', 'Bartosz', 'Baranski', 'W1-2017', 'user');
 
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu: print(int("22") + int("22")) ?', '22', '44', '444', '2222', 'odp2');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Wzkaż krotkę:', '[a,b,c]', '(a,b,c)', '{a,b,c}', "{'a','b','c'}", 'odp2');
-
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu: print(int("22") + int("22")) ?', '22', '44', '444', '2222', '44');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Wzkaż krotkę:', '[a,b,c]', '(a,b,c)', '{a,b,c}', "{'a','b','c'}", '(a,b,c)');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu: int("3"+"4"):', '"7"', '7', '"34"', '34', '34');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu: float("210" * int(input("Enter a number:")))/nEnter a number: 2', '420', '"210210"', '210210.0', '"420.0"', '210210.0');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Jaki jest wynik kodu:/n spam = "eggs"/nprint(spam * 3) ?', 'spamspamspam', '"spamspamspam"', 'eggseggseggs', '"eggseggseggs"', 'eggseggseggs');
 
 
