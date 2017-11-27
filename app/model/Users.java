@@ -10,6 +10,10 @@ public class Users {
 	private String rola;
 	private String czas;
 
+	public Users() {
+
+	}
+
 	public Users(String login, String haslo, String imie, String nazwisko, String grupa, String rola, String czas) {
 		super();
 		this.login = login;

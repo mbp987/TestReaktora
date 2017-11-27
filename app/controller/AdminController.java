@@ -7,24 +7,30 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import app.database.DBConnector;
+import app.model.Questions;
 import app.model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import util.Util;
 
 public class AdminController {
 
@@ -151,14 +157,122 @@ public class AdminController {
 	@FXML
 	private Button btn_filterCancel;
 
+	// Anchor questions
+	@FXML
+	private AnchorPane view_questions;
+
+	@FXML
+	private Button btn_showQuestions;
+
+	@FXML
+	private Button btn_addQuestion;
+
+	@FXML
+	private Button btn_editQuestion;
+
+	@FXML
+	private Button btn_deleteQuestion;
+
+	@FXML
+	private Button btn_commitQuestion;
+
+	@FXML
+	private TableView<Questions> tbl_questions;
+
+	@FXML
+	private TableColumn<Questions, Integer> col_questionId;
+
+	@FXML
+	private TableColumn<Questions, String> col_questionLang;
+
+	@FXML
+	private TableColumn<Questions, String> col_question;
+
+	@FXML
+	private TableColumn<Questions, String> col_answear1;
+
+	@FXML
+	private TableColumn<Questions, String> col_answear2;
+
+	@FXML
+	private TableColumn<Questions, String> col_answear3;
+
+	@FXML
+	private TableColumn<Questions, String> col_answear4;
+
+	@FXML
+	private TableColumn<Questions, String> col_correctAnswear;
+
+	@FXML
+	private TableColumn<Questions, String> col_questionTimestamp;
+
+	@FXML
+	private AnchorPane tbl_questionEdit;
+
+	@FXML
+	private TextField tf_questionID;
+
+	@FXML
+	private TextField tf_questionLang;
+
+	@FXML
+	private TextArea ta_questionText;
+
+	@FXML
+	private TextArea ta_answear1;
+
+	@FXML
+	private TextArea ta_answear2;
+
+	@FXML
+	private TextArea ta_answear3;
+
+	@FXML
+	private TextArea ta_answear4;
+
+	@FXML
+	private TextField tf_correctAnswear;
+
+	@FXML
+	private ToggleGroup odpowiedzi;
+
+	@FXML
+	private RadioButton rb_answear1;
+
+	@FXML
+	private RadioButton rb_answear4;
+
+	@FXML
+	private RadioButton rb_answear3;
+
+	@FXML
+	private RadioButton rb_answear2;
+
+	@FXML
+	private RadioButton rb_answearFalse;
+
+	@FXML
+	private Button btn_newQuestion;
+
+	@FXML
+	private Button btn_questionEditSave;
+
+	@FXML
+	private Button btn_questionCancel;
+
+	@FXML
+	private TextField tf_questionTimestamp;
+
 	// Dodane spoza scheletona
 	ObservableList<String> rola = FXCollections.observableArrayList("user", "admin");
 	Connection conn = DBConnector.getConnection();
-	public ObservableList<Users> data;
+	public ObservableList<Users> usersList;
+	public ObservableList<Questions> questionsList;
 
 	// G³ówne menu:
 	@FXML
 	void actionUsers(MouseEvent event) {
+		view_questions.setVisible(false);
 		view_users.setVisible(true);
 
 	}
@@ -166,6 +280,7 @@ public class AdminController {
 	@FXML
 	void actionQuestions(MouseEvent event) {
 		view_users.setVisible(false);
+		view_questions.setVisible(true);
 
 	}
 
@@ -362,13 +477,13 @@ public class AdminController {
 		lbl_addUser.setVisible(false);
 		lbl_editUser.setVisible(false);
 		tbl_edit.setVisible(false);
-		data = FXCollections.observableArrayList();
+		usersList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery("select * from uzytkownicy");
 		while (rs.next()) {
-			data.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+			usersList.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
 		}
 		tbl_users.setItems(null);
-		tbl_users.setItems(data);
+		tbl_users.setItems(usersList);
 	}
 
 	@FXML
@@ -383,7 +498,7 @@ public class AdminController {
 	@FXML
 	void actionFilter(MouseEvent event) throws SQLException {
 		PreparedStatement pstm = null;
-		data = FXCollections.observableArrayList();
+		usersList = FXCollections.observableArrayList();
 		String login = "";
 		String haslo = "";
 		String imie = "";
@@ -392,19 +507,19 @@ public class AdminController {
 		String rola = "";
 
 		if (!Objects.isNull(tf_loginFiltr)) {
-			login = tf_loginFiltr.getText();
+			login = Util.convert(tf_loginFiltr.getText());
 		}
 		if (!Objects.isNull(tf_hasloFiltr)) {
-			haslo = tf_hasloFiltr.getText();
+			haslo = Util.convert(tf_hasloFiltr.getText());
 		}
 		if (!Objects.isNull(tf_imieFiltr)) {
-			imie = tf_imieFiltr.getText();
+			imie = Util.convert(tf_imieFiltr.getText());
 		}
 		if (!Objects.isNull(tf_nazwiskoFiltr)) {
-			nazwisko = tf_nazwiskoFiltr.getText();
+			nazwisko = Util.convert(tf_nazwiskoFiltr.getText());
 		}
 		if (!Objects.isNull(tf_grupaFiltr)) {
-			grupa = tf_grupaFiltr.getText();
+			grupa = Util.convert(tf_grupaFiltr.getText());
 		}
 		if (combo_rolaFiltr.getValue() != null) {
 			rola = combo_rolaFiltr.getValue();
@@ -412,19 +527,19 @@ public class AdminController {
 		// Budowa zapytania do filtrowania u¿ytkowników:
 		String sql = "SELECT * FROM uzytkownicy WHERE 1 = 1";
 		if (!login.isEmpty()) {
-			sql += " AND login = '" + login + "'";
+			sql += " AND login LIKE '" + login + "'";
 		}
 		if (!haslo.isEmpty()) {
-			sql += " AND haslo = '" + haslo + "'";
+			sql += " AND haslo LIKE '" + haslo + "'";
 		}
 		if (!imie.isEmpty()) {
-			sql += " AND imie = '" + imie + "'";
+			sql += " AND imie LIKE '" + imie + "'";
 		}
 		if (!nazwisko.isEmpty()) {
-			sql += " AND nazwisko = '" + nazwisko + "'";
+			sql += " AND nazwisko LIKE '" + nazwisko + "'";
 		}
 		if (!grupa.isEmpty()) {
-			sql += " AND grupa = '" + grupa + "'";
+			sql += " AND grupa LIKE '" + grupa + "'";
 		}
 		if (!rola.isEmpty()) {
 			sql += " AND rola = '" + rola + "'";
@@ -433,10 +548,10 @@ public class AdminController {
 		pstm = conn.prepareStatement(sql);
 		ResultSet rs = conn.createStatement().executeQuery(sql);
 		while (rs.next()) {
-			data.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+			usersList.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
 		}
 		tbl_users.setItems(null);
-		tbl_users.setItems(data);
+		tbl_users.setItems(usersList);
 	}
 
 	@FXML
@@ -448,6 +563,78 @@ public class AdminController {
 		tf_grupaFiltr.clear();
 		combo_rolaFiltr.setValue(null);
 		actionShowUsers(event);
+	}
+
+	// Metody dotycz¹ce sekcji pytañ:
+	// Metoda pokazuj¹ca wszystkie pytania
+	@FXML
+	void actionShowQuestions(ActionEvent event) throws SQLException {
+		tbl_questionEdit.setVisible(false);
+		questionsList = FXCollections.observableArrayList();
+		ResultSet rs = conn.createStatement().executeQuery("select * from pytania");
+		while (rs.next()) {
+			// Questions(Integer id_pytania, String jezyk, String tresc, String
+			// odp1, String odp2, String odp3, String odp4, String
+			// prawidlowa_odp, String czas)
+			questionsList.add(new Questions(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
+					rs.getString(8), rs.getString(9)));
+		}
+		tbl_questions.setItems(null);
+		tbl_questions.setItems(questionsList);
+	}
+
+	// Metoda uruchamiaj¹ca panel dodawania pytañ
+	@FXML
+	void actionAddQuestion(ActionEvent event) {
+		tbl_questionEdit.setVisible(true);
+		btn_questionEditSave.setVisible(false);
+		btn_newQuestion.setVisible(true);
+		tf_questionID.clear();
+		tf_questionLang.clear();
+		ta_questionText.clear();
+		ta_answear1.clear();
+		ta_answear2.clear();
+		ta_answear3.clear();
+		ta_answear4.clear();
+		tf_questionTimestamp.clear();
+		rb_answearFalse.setSelected(true);
+	}
+
+	// Metoda zapisuj¹ca pytanie do bazy
+	@FXML
+	void actionQuestionSave(ActionEvent event) {
+		
+	}
+
+	// Metoda uruchamiaj¹ca panel edycji pytania zaznaczonego w tabeli
+	@FXML
+	void actionEditQuestion(ActionEvent event) {
+
+	}
+
+	// Metoda usuwaj¹ca zaznaczone w tabeli pytanie
+	@FXML
+	void actionDeleteQuestion(ActionEvent event) {
+
+	}
+
+	// Metoda zatwierdzaj¹ca zmiany w pytaniu WPROWADZONE W TABELI I
+	// ZATWIERDZONE ENTEREM
+	@FXML
+	void actionCommitQuestion(ActionEvent event) {
+
+	}
+
+	// Metoda zapisuj¹ca pytanie po edycji
+	@FXML
+	void actionQuestionEditSave(ActionEvent event) {
+
+	}
+
+	// Metoda anuluj¹ca wprowadzanie zmian/dodawanie pytania
+	@FXML
+	void actionQuestionCancel(ActionEvent event) {
+
 	}
 
 	public void initialize() {
@@ -502,6 +689,72 @@ public class AdminController {
 			@Override
 			public void handle(CellEditEvent<Users, String> t) {
 				((Users) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCzas(t.getNewValue());
+			}
+		});
+		// Tabela pytañ
+		col_questionId.setCellValueFactory(new PropertyValueFactory<Questions, Integer>("id_pytania"));
+		col_questionLang.setCellValueFactory(new PropertyValueFactory<Questions, String>("jezyk"));
+		col_questionLang.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_questionLang.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setJezyk(t.getNewValue());
+			}
+		});
+		col_question.setCellValueFactory(new PropertyValueFactory<Questions, String>("tresc"));
+		col_question.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_question.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setTresc(t.getNewValue());
+			}
+		});
+		col_answear1.setCellValueFactory(new PropertyValueFactory<Questions, String>("odp1"));
+		col_answear1.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_answear1.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setOdp1(t.getNewValue());
+			}
+		});
+		col_answear2.setCellValueFactory(new PropertyValueFactory<Questions, String>("odp2"));
+		col_answear2.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_answear2.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setOdp2(t.getNewValue());
+			}
+		});
+		col_answear3.setCellValueFactory(new PropertyValueFactory<Questions, String>("odp3"));
+		col_answear3.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_answear3.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setOdp3(t.getNewValue());
+			}
+		});
+		col_answear4.setCellValueFactory(new PropertyValueFactory<Questions, String>("odp4"));
+		col_answear4.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_answear4.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setOdp4(t.getNewValue());
+			}
+		});
+		col_correctAnswear.setCellValueFactory(new PropertyValueFactory<Questions, String>("prawidlowa_odp"));
+		col_correctAnswear.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_correctAnswear.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setPrawidlowa_odp(t.getNewValue());
+			}
+		});
+		col_questionTimestamp.setCellValueFactory(new PropertyValueFactory<Questions, String>("czas"));
+		col_questionTimestamp.setCellFactory(TextFieldTableCell.forTableColumn());
+		col_questionTimestamp.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
+			@Override
+			public void handle(CellEditEvent<Questions, String> t) {
+				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCzas(t.getNewValue());
 			}
 		});
 	}

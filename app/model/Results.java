@@ -1,17 +1,17 @@
 package app.model;
 
 public class Results {
-	
+
 	private Integer id_wynik;
 	private String login;
 	private String jezyk;
 	private Integer liczba_pytan;
 	private Integer wynik;
 	private String czas;
-	
-	
-	
-	public Results(Integer id_wynik, String login, String jezyk, Integer liczba_pytan, Integer wynik, String czas) {
+
+	private Users user = new Users();
+
+	public Results(Integer id_wynik, String login, String jezyk, Integer liczba_pytan, Integer wynik, String czas, Users user) {
 		super();
 		this.id_wynik = id_wynik;
 		this.login = login;
@@ -19,46 +19,64 @@ public class Results {
 		this.liczba_pytan = liczba_pytan;
 		this.wynik = wynik;
 		this.czas = czas;
+		this.user = user;
 	}
-	
-	
+
 	public Integer getId_wynik() {
 		return id_wynik;
 	}
+
 	public void setId_wynik(Integer id_wynik) {
 		this.id_wynik = id_wynik;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getJezyk() {
 		return jezyk;
 	}
+
 	public void setJezyk(String jezyk) {
 		this.jezyk = jezyk;
 	}
+
 	public Integer getLiczba_pytan() {
 		return liczba_pytan;
 	}
+
 	public void setLiczba_pytan(Integer liczba_pytan) {
 		this.liczba_pytan = liczba_pytan;
 	}
+
 	public Integer getWynik() {
 		return wynik;
 	}
+
 	public void setWynik(Integer wynik) {
 		this.wynik = wynik;
 	}
+
 	public String getCzas() {
 		return czas;
 	}
+
 	public void setCzas(String czas) {
 		this.czas = czas;
 	}
 
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
 
 	@Override
 	public int hashCode() {
@@ -69,10 +87,10 @@ public class Results {
 		result = prime * result + ((jezyk == null) ? 0 : jezyk.hashCode());
 		result = prime * result + ((liczba_pytan == null) ? 0 : liczba_pytan.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((wynik == null) ? 0 : wynik.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -108,6 +126,11 @@ public class Results {
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		if (wynik == null) {
 			if (other.wynik != null)
 				return false;
@@ -115,6 +138,5 @@ public class Results {
 			return false;
 		return true;
 	}
-	
 
 }
