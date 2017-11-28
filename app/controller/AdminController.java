@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import app.database.DBConnector;
 import app.model.Questions;
+import app.model.Results;
 import app.model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import util.Util;
 
@@ -274,6 +276,163 @@ public class AdminController {
 	@FXML
 	private TextField tf_questionTimestamp;
 
+	// Result view
+	@FXML
+	private AnchorPane view_results;
+
+	@FXML
+	private Button btn_results_users;
+
+	@FXML
+	private Button btn_results_groups;
+
+	@FXML
+	private Button btn_result_show_one_group;
+
+	@FXML
+	private Button btn_result_show_all_groups;
+
+	@FXML
+	private Button btn_result_filter_groups;
+
+	@FXML
+	private Button btn_result_show_one_user;
+
+	@FXML
+	private Button btn_result_show_all_users;
+
+	@FXML
+	private Button btn_result_filter_users;
+
+	@FXML
+	private AnchorPane view_result_details;
+
+	@FXML
+	private ComboBox<Results> combo_result_user_credentials;
+
+	@FXML
+	private Label lbl_result_table;
+
+	@FXML
+	private GridPane gridUser;
+
+	@FXML
+	private TextField user_all_liczba_testow;
+
+	@FXML
+	private TextField user_BD_liczba_testow;
+
+	@FXML
+	private TextField user_Git_liczba_testow;
+
+	@FXML
+	private TextField user_Python_liczba_testow;
+
+	@FXML
+	private TextField user_FE_liczba_testow;
+
+	@FXML
+	private TextField user_Java_liczba_testow;
+
+	@FXML
+	private TextField user_Spring_liczba_testow;
+
+	@FXML
+	private TextField user_all_liczba_pytan;
+
+	@FXML
+	private TextField user_BD_liczba_pytan;
+
+	@FXML
+	private TextField user_Git_liczba_pytan;
+
+	@FXML
+	private TextField user_Python_liczba_pytan;
+
+	@FXML
+	private TextField user_FE_liczba_pytan;
+
+	@FXML
+	private TextField user_Java_liczba_pytan;
+
+	@FXML
+	private TextField user_Spring_liczba_pytan;
+
+	@FXML
+	private TextField user_all_dobrych;
+
+	@FXML
+	private TextField user_BD_dobrych;
+
+	@FXML
+	private TextField user_Git_dobrych;
+
+	@FXML
+	private TextField user_Python_dobrych;
+
+	@FXML
+	private TextField user_FE_dobrych;
+
+	@FXML
+	private TextField user_Java_dobrych;
+
+	@FXML
+	private TextField user_Spring_dobrych;
+
+	@FXML
+	private AnchorPane view_result_filter;
+
+	@FXML
+	private TextField tf_result_user_login_filter;
+
+	@FXML
+	private TextField tf_result_user_imie_filter;
+
+	@FXML
+	private TextField tf_result_user_nazwisko_filter;
+
+	@FXML
+	private Button btn_result_filter;
+
+	@FXML
+	private Button btn_result_filter_clear;
+
+	@FXML
+	private ComboBox<Results> combo_result_grupa_filtr;
+
+	@FXML
+	private ComboBox<Results> combo_result_jezyk_filtr;
+
+	@FXML
+	private TableView<Results> tbl_userResults;
+
+	@FXML
+	private TableColumn<Results, String> col_resultLogin;
+
+	@FXML
+	private TableColumn<Results, String> col_resultImie;
+
+	@FXML
+	private TableColumn<Results, String> col_resultNazwisko;
+
+	@FXML
+	private TableColumn<Results, String> col_resultGrupa;
+
+	@FXML
+	private TableColumn<Results, Integer> col_resultIDWynik;
+
+	@FXML
+	private TableColumn<Results, String> col_resultJezyk;
+
+	@FXML
+	private TableColumn<Results, Integer> col_resultLiczbaPytan;
+
+	@FXML
+	private TableColumn<Results, Float> col_resultWynik;
+
+	@FXML
+	private TableColumn<Results, String> col_resultTime;
+
 	// Dodane spoza scheletona
 	ObservableList<String> rola = FXCollections.observableArrayList("user", "admin");
 	ObservableList<String> lang = FXCollections.observableArrayList("BD", "Git", "Python", "FE", "Java", "Spring");
@@ -286,20 +445,21 @@ public class AdminController {
 	void actionUsers(MouseEvent event) {
 		view_questions.setVisible(false);
 		view_users.setVisible(true);
-
+		view_results.setVisible(false);
 	}
 
 	@FXML
 	void actionQuestions(MouseEvent event) {
 		view_users.setVisible(false);
 		view_questions.setVisible(true);
-
+		view_results.setVisible(false);
 	}
 
 	@FXML
 	void actionResults(MouseEvent event) {
 		view_users.setVisible(false);
 		view_questions.setVisible(false);
+		view_results.setVisible(true);
 	}
 
 	// Wewn¹trz anchor_users:
@@ -922,6 +1082,57 @@ public class AdminController {
 		rb_answearFalse.setSelected(true);
 		actionShowQuestions(event);
 		actionEditQuestion(event);
+	}
+
+	// Metody Results:
+	@FXML
+	void actionResultClearFilter(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultFilter(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsAllGroups(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsAllUsers(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsFilterGroups(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsFilterUsers(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsGroups(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsOneGroup(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsOneUser(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionResultsUsers(ActionEvent event) {
+
 	}
 
 	@FXML
