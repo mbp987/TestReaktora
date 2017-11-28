@@ -10,6 +10,8 @@ import app.database.DBConnector;
 import app.model.Questions;
 import app.model.Results;
 import app.model.Users;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,23 +22,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import util.Util;
 
 public class AdminController {
@@ -439,6 +443,7 @@ public class AdminController {
 	Connection conn = DBConnector.getConnection();
 	public ObservableList<Users> usersList;
 	public ObservableList<Questions> questionsList;
+	public ObservableList<Results> resultsList;
 
 	// G³ówne menu:
 	@FXML
@@ -460,6 +465,15 @@ public class AdminController {
 		view_users.setVisible(false);
 		view_questions.setVisible(false);
 		view_results.setVisible(true);
+		view_result_details.setVisible(false);
+		view_result_filter.setVisible(false);
+		btn_result_show_one_group.setDisable(true);
+		btn_result_show_all_groups.setDisable(true);
+		btn_result_filter_groups.setDisable(true);
+		btn_result_show_one_user.setDisable(true);
+		btn_result_show_all_users.setDisable(true);
+		btn_result_filter_users.setDisable(true);
+		combo_result_user_credentials.setDisable(true);
 	}
 
 	// Wewn¹trz anchor_users:
@@ -925,7 +939,6 @@ public class AdminController {
 		String odp2 = "";
 		String odp3 = "";
 		String odp4 = "";
-		String prawidlowa_odp = "";
 
 		if (!Objects.isNull(combo_questionLang.getValue())) {
 			jezyk = combo_questionLang.getValue();
@@ -1101,8 +1114,22 @@ public class AdminController {
 	}
 
 	@FXML
-	void actionResultsAllUsers(ActionEvent event) {
-
+	void actionResultsAllUsers(ActionEvent event) throws SQLException {
+		tbl_userResults.setVisible(true);
+		view_result_details.setVisible(false);
+		view_result_filter.setVisible(false);
+		resultsList = FXCollections.observableArrayList();
+		ResultSet rs = conn.createStatement().executeQuery(
+				"select login, imie, nazwisko, grupa, id_wynik, jezyk, liczba_pytan, wynik, wyniki.czas FROM wyniki LEFT JOIN uzytkownicy USING (login)");
+		while (rs.next()) {
+			// Results(String login, String imie, String nazwisko, String grupa,
+			// Integer id_wynik, String jezyk, Integer liczba_pytan, Float
+			// wynik, String czas)
+			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7),
+					rs.getFloat(8), rs.getString(9)));
+		}
+		tbl_userResults.setItems(null);
+		tbl_userResults.setItems(resultsList);
 	}
 
 	@FXML
@@ -1117,7 +1144,13 @@ public class AdminController {
 
 	@FXML
 	void actionResultsGroups(ActionEvent event) {
-
+		btn_result_show_one_group.setDisable(false);
+		btn_result_show_all_groups.setDisable(false);
+		btn_result_filter_groups.setDisable(false);
+		btn_result_show_one_user.setDisable(true);
+		btn_result_show_all_users.setDisable(true);
+		btn_result_filter_users.setDisable(true);
+		combo_result_user_credentials.setDisable(true);
 	}
 
 	@FXML
@@ -1126,13 +1159,225 @@ public class AdminController {
 	}
 
 	@FXML
-	void actionResultsOneUser(ActionEvent event) {
-
+	void actionResultsOneUser(ActionEvent event) throws SQLException {
+		ResultSet rs;
+		Results selectedItem = tbl_userResults.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			view_result_details.setVisible(true);
+			view_result_filter.setVisible(false);
+			lbl_result_table.setText("Œrednie wyniki dla " + selectedItem.getUser().getImie() + " " + selectedItem.getUser().getNazwisko());
+			String user = selectedItem.getLogin();
+			// Liczba testów / wszystkie
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_all_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_all_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / wszystkie
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_all_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_all_liczba_testow.clear();
+				}
+			}
+			// Œrednia % poprawnych / wszystkie
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_all_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_all_dobrych.clear();
+				}
+			}
+			// Liczba testów / Python
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Python_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Python_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / Python
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Python_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Python_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / Python
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_Python_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_Python_dobrych.clear();
+				}
+			}
+			// Liczba testów / Java
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Java_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Java_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / Java
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Java_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Java_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / Java
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_Java_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_Java_dobrych.clear();
+				}
+			}
+			// Liczba testów / BD
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_BD_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_BD_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / BD
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_BD_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_BD_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / BD
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_BD_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_BD_dobrych.clear();
+				}
+			}
+			// Liczba testów / Git
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Git_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Git_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / Git
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Git_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Git_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / Git
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_Git_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_Git_dobrych.clear();
+				}
+			}
+			// Liczba testów / FE
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_FE_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_FE_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / FE
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_FE_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_FE_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / FE
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_FE_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_FE_dobrych.clear();
+				}
+			}
+			// Liczba testów / Spring
+			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Spring_liczba_testow.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Spring_liczba_testow.clear();
+				}
+			}
+			// Œrednia liczba pytañ / Spring
+			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getInt(1) != 0) {
+					user_Spring_liczba_pytan.setText(String.valueOf(rs.getInt(1)));
+				} else {
+					user_Spring_liczba_pytan.clear();
+				}
+			}
+			// Œrednia % poprawnych / Spring
+			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
+			while (rs.next()) {
+				if (rs.getDouble(1) != 0) {
+					Long wynik = Math.round(rs.getDouble(1) * 100);
+					user_Spring_dobrych.setText(String.valueOf(wynik) + "%");
+				} else {
+					user_Spring_dobrych.clear();
+				}
+			}
+		} else {
+			view_result_details.setVisible(false);
+			view_result_filter.setVisible(false);
+		}
 	}
 
 	@FXML
 	void actionResultsUsers(ActionEvent event) {
-
+		btn_result_show_one_group.setDisable(true);
+		btn_result_show_all_groups.setDisable(true);
+		btn_result_filter_groups.setDisable(true);
+		btn_result_show_one_user.setDisable(false);
+		btn_result_show_all_users.setDisable(false);
+		btn_result_filter_users.setDisable(false);
+		combo_result_user_credentials.setDisable(false);
 	}
 
 	@FXML
@@ -1264,13 +1509,17 @@ public class AdminController {
 			}
 		});
 		col_questionTimestamp.setCellValueFactory(new PropertyValueFactory<Questions, String>("czas"));
-		col_questionTimestamp.setCellFactory(TextFieldTableCell.forTableColumn());
-		col_questionTimestamp.setOnEditCommit(new EventHandler<CellEditEvent<Questions, String>>() {
-			@Override
-			public void handle(CellEditEvent<Questions, String> t) {
-				((Questions) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCzas(t.getNewValue());
-			}
-		});
+
+		// Tabela wyników:
+		col_resultLogin.setCellValueFactory(new PropertyValueFactory<Results, String>("login"));
+		col_resultImie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getImie()));
+		col_resultNazwisko.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getNazwisko()));
+		col_resultGrupa.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getGrupa()));
+		col_resultIDWynik.setCellValueFactory(new PropertyValueFactory<Results, Integer>("id_wynik"));
+		col_resultJezyk.setCellValueFactory(new PropertyValueFactory<Results, String>("jezyk"));
+		col_resultLiczbaPytan.setCellValueFactory(new PropertyValueFactory<Results, Integer>("liczba_pytan"));
+		col_resultWynik.setCellValueFactory(new PropertyValueFactory<Results, Float>("wynik"));
+		col_resultTime.setCellValueFactory(new PropertyValueFactory<Results, String>("czas"));
 	}
 
 }
