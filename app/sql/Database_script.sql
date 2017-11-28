@@ -119,3 +119,15 @@ insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl
 insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 20, 0.5);
 insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 30, 0.6);
 insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 15, 0.7);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'FE', 20, 0.5);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'FE', 30, 0.4);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'FE', 10, 0.2);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Git', 15, 0.9);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Git', 30, 0.9);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Git', 25, 0.75);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Spring', 40, 0.3);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Spring', 10, 0.5);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Spring', 15, 0.65);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'BD', 20, 0.3);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'BD', 20, 0.5);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'BD', 15, 0.65);
