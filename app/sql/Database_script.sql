@@ -105,3 +105,17 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Python', 20, 0.75);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Python', 30, 0.85);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Python', 15, 0.95);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Java', 20, 0.5);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Java', 30, 0.6);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Java', 15, 0.7);
+
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Python', 20, 0.75);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Python', 30, 0.85);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Python', 15, 0.95);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 20, 0.5);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 30, 0.6);
+insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('b.baranski@wp.pl', 'Java', 15, 0.7);
