@@ -14,6 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -30,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import util.Util;
 
 public class AdminController {
@@ -45,6 +50,9 @@ public class AdminController {
 
 	@FXML
 	private Button btn_results;
+
+	@FXML
+	private Button btn_logout;
 
 	@FXML
 	private AnchorPane view_users;
@@ -258,6 +266,9 @@ public class AdminController {
 	private Button btn_questionEditSave;
 
 	@FXML
+	private Button btn_questionFilter;
+
+	@FXML
 	private Button btn_questionCancel;
 
 	@FXML
@@ -288,7 +299,7 @@ public class AdminController {
 	@FXML
 	void actionResults(MouseEvent event) {
 		view_users.setVisible(false);
-
+		view_questions.setVisible(false);
 	}
 
 	// Wewn¹trz anchor_users:
@@ -478,6 +489,7 @@ public class AdminController {
 		lbl_addUser.setVisible(false);
 		lbl_editUser.setVisible(false);
 		tbl_edit.setVisible(false);
+		tf_questionID.setDisable(true);
 		usersList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery("select * from uzytkownicy");
 		while (rs.next()) {
@@ -492,6 +504,7 @@ public class AdminController {
 		tbl_edit.setVisible(false);
 		tbl_filter.setVisible(true);
 		lbl_filterUser.setVisible(true);
+		tf_questionID.setDisable(false);
 		lbl_addUser.setVisible(false);
 		lbl_editUser.setVisible(false);
 	}
@@ -670,14 +683,17 @@ public class AdminController {
 			{
 				if (!rb_answear1.equals("")) {
 					prawidlowa_odp = ta_answear1.getText();
+					tf_correctAnswear.setText("1");
 				} else if (!rb_answear2.equals("")) {
 					prawidlowa_odp = ta_answear2.getText();
+					tf_correctAnswear.setText("2");
 				} else if (!rb_answear3.equals("")) {
 					prawidlowa_odp = ta_answear3.getText();
+					tf_correctAnswear.setText("3");
 				} else if (!rb_answear4.equals("")) {
 					prawidlowa_odp = ta_answear4.getText();
-				}
-				else {
+					tf_correctAnswear.setText("4");
+				} else {
 					Alert view_error = new Alert(AlertType.ERROR);
 					view_error.setContentText("Nie wybra³eœ ¿adnej prawid³owej odpowiedzi");
 					view_error.setHeaderText("B³¹d!");
@@ -686,8 +702,8 @@ public class AdminController {
 					break;
 				}
 			}
-			String sql = "INSERT INTO pytania (jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) VALUES ('" + jezyk + "', '" + tresc
-					+ "', '" + odp1 + "', '" + odp2 + "', '" + odp3 + "', '" + odp4 + "', '" + prawidlowa_odp + "')";
+			String sql = "INSERT INTO pytania (jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) VALUES ('" + jezyk + "', '" + tresc + "', '" + odp1
+					+ "', '" + odp2 + "', '" + odp3 + "', '" + odp4 + "', '" + prawidlowa_odp + "')";
 			System.out.println(sql);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
@@ -700,32 +716,227 @@ public class AdminController {
 	// Metoda uruchamiaj¹ca panel edycji pytania zaznaczonego w tabeli
 	@FXML
 	void actionEditQuestion(ActionEvent event) {
+		tf_questionID.setDisable(true);
+		Questions selectedItem = tbl_questions.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			tbl_questionEdit.setVisible(true);
+			btn_questionEditSave.setVisible(true);
+			btn_newQuestion.setVisible(false);
+			tf_questionID.setText(String.valueOf(selectedItem.getId_pytania()));
+			combo_questionLang.setValue(selectedItem.getJezyk());
+			ta_questionText.setText(selectedItem.getTresc());
+			ta_answear1.setText(selectedItem.getOdp1());
+			ta_answear2.setText(selectedItem.getOdp2());
+			ta_answear3.setText(selectedItem.getOdp3());
+			ta_answear4.setText(selectedItem.getOdp4());
+			tf_questionTimestamp.setText(selectedItem.getCzas());
+			rb_answearFalse.setSelected(true);
+			// Znalezienie prawid³owej odpowiedzi i ustawienie radio button'a
+			{
+				if (ta_answear1.getText().equals(selectedItem.getPrawidlowa_odp())) {
+					rb_answear1.setSelected(true);
+					tf_correctAnswear.setText("1");
+				} else if (ta_answear2.getText().equals(selectedItem.getPrawidlowa_odp())) {
+					rb_answear2.setSelected(true);
+					tf_correctAnswear.setText("2");
+				} else if (ta_answear3.getText().equals(selectedItem.getPrawidlowa_odp())) {
+					rb_answear3.setSelected(true);
+					tf_correctAnswear.setText("3");
+				} else if (ta_answear4.getText().equals(selectedItem.getPrawidlowa_odp())) {
+					rb_answear4.setSelected(true);
+					tf_correctAnswear.setText("4");
+				}
+			}
+		} else {
+			tbl_questionEdit.setVisible(true);
+			btn_questionEditSave.setVisible(true);
+			btn_newQuestion.setVisible(false);
+		}
 
+	}
+
+	@FXML
+	void actionQuestionFilter(ActionEvent event) throws SQLException {
+		PreparedStatement pstm = null;
+		questionsList = FXCollections.observableArrayList();
+		String jezyk = "";
+		String tresc = "";
+		String odp1 = "";
+		String odp2 = "";
+		String odp3 = "";
+		String odp4 = "";
+		String prawidlowa_odp = "";
+
+		if (!Objects.isNull(combo_questionLang.getValue())) {
+			jezyk = combo_questionLang.getValue();
+		}
+		if (!Objects.isNull(ta_questionText)) {
+			tresc = Util.convert(ta_questionText.getText());
+		}
+		if (!Objects.isNull(ta_answear1)) {
+			odp1 = Util.convert(ta_answear1.getText());
+		}
+		if (!Objects.isNull(ta_answear2)) {
+			odp2 = Util.convert(ta_answear2.getText());
+		}
+		if (!Objects.isNull(ta_answear3)) {
+			odp3 = Util.convert(ta_answear3.getText());
+		}
+		if (!Objects.isNull(ta_answear4)) {
+			odp4 = Util.convert(ta_answear4.getText());
+		}
+		// Budowa zapytania do filtrowania u¿ytkowników:
+		String sql = "SELECT * FROM pytania WHERE 1 = 1";
+		if (!jezyk.isEmpty()) {
+			sql += " AND jezyk LIKE '" + jezyk + "'";
+		}
+		if (!tresc.isEmpty()) {
+			sql += " AND tresc LIKE '" + tresc + "'";
+		}
+		if (!odp1.isEmpty()) {
+			sql += " AND odp1 LIKE '" + odp1 + "'";
+		}
+		if (!odp2.isEmpty()) {
+			sql += " AND odp2 LIKE '" + odp2 + "'";
+		}
+		if (!odp3.isEmpty()) {
+			sql += " AND odp3 LIKE '" + odp3 + "'";
+		}
+		if (!odp4.isEmpty()) {
+			sql += " AND odp4 LIKE '" + odp4 + "'";
+		}
+		System.out.println(sql);
+		pstm = conn.prepareStatement(sql);
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		while (rs.next()) {
+			questionsList.add(new Questions(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
+					rs.getString(8), rs.getString(9)));
+		}
+		tbl_questions.setItems(null);
+		tbl_questions.setItems(questionsList);
 	}
 
 	// Metoda usuwaj¹ca zaznaczone w tabeli pytanie
 	@FXML
-	void actionDeleteQuestion(ActionEvent event) {
-
+	void actionDeleteQuestion(ActionEvent event) throws SQLException {
+		tbl_questionEdit.setVisible(false);
+		Questions selectedItem = tbl_questions.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			Integer id = selectedItem.getId_pytania();
+			String sql = "DELETE FROM pytania WHERE id_pytania = " + id;
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			actionShowQuestions(event);
+		} else {
+			Alert view_error = new Alert(AlertType.ERROR);
+			view_error.setContentText("Nie wybra³eœ ¿adnego wiersza w tabeli do usuniêcia, najpierw wybierz wiersz do usuniêcia");
+			view_error.setHeaderText("B³¹d!");
+			view_error.setTitle("Okno b³êdu");
+			view_error.showAndWait();
+		}
 	}
 
 	// Metoda zatwierdzaj¹ca zmiany w pytaniu WPROWADZONE W TABELI I
 	// ZATWIERDZONE ENTEREM
 	@FXML
-	void actionCommitQuestion(ActionEvent event) {
-
+	void actionCommitQuestion(ActionEvent event) throws SQLException {
+		String jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp;
+		Questions selectedItem = tbl_questions.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			Integer id = selectedItem.getId_pytania();
+			jezyk = selectedItem.getJezyk();
+			tresc = selectedItem.getTresc();
+			odp1 = selectedItem.getOdp1();
+			odp2 = selectedItem.getOdp2();
+			odp3 = selectedItem.getOdp3();
+			odp4 = selectedItem.getOdp4();
+			{
+				if (rb_answear1.isSelected()) {
+					prawidlowa_odp = ta_answear1.getText();
+					tf_correctAnswear.setText("1");
+				} else if (rb_answear2.isSelected()) {
+					prawidlowa_odp = ta_answear2.getText();
+					tf_correctAnswear.setText("2");
+				} else if (rb_answear3.isSelected()) {
+					prawidlowa_odp = ta_answear3.getText();
+					tf_correctAnswear.setText("3");
+				} else if (rb_answear4.isSelected()) {
+					prawidlowa_odp = ta_answear4.getText();
+					tf_correctAnswear.setText("4");
+				}
+			}
+			prawidlowa_odp = selectedItem.getPrawidlowa_odp();
+			String sql = "UPDATE pytania SET jezyk = '" + jezyk + "', tresc = '" + tresc + "', odp1 = '" + odp1 + "', odp2 = '" + odp2 + "', odp3 = '" + odp3
+					+ "', odp4 = '" + odp4 + "', prawidlowa_odp = '" + prawidlowa_odp + "' WHERE id_pytania = " + id;
+			System.out.println(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			actionShowQuestions(event);
+		}
 	}
 
 	// Metoda zapisuj¹ca pytanie po edycji
 	@FXML
-	void actionQuestionEditSave(ActionEvent event) {
-
+	void actionQuestionEditSave(ActionEvent event) throws SQLException {
+		String prawidlowa_odp = "";
+		{
+			if (rb_answear1.isSelected()) {
+				prawidlowa_odp = Util.convert(ta_answear1.getText());
+				tf_correctAnswear.setText("1");
+			} else if (rb_answear2.isSelected()) {
+				prawidlowa_odp = Util.convert(ta_answear2.getText());
+				tf_correctAnswear.setText("2");
+			} else if (rb_answear3.isSelected()) {
+				prawidlowa_odp = Util.convert(ta_answear3.getText());
+				tf_correctAnswear.setText("3");
+			} else if (rb_answear4.isSelected()) {
+				prawidlowa_odp = Util.convert(ta_answear4.getText());
+				tf_correctAnswear.setText("4");
+			}
+		}
+		String sql = "UPDATE pytania SET jezyk = '" + combo_questionLang.getValue() + "', tresc = '" + ta_questionText.getText() + "', odp1 = '"
+				+ ta_answear1.getText() + "', odp2 = '" + ta_answear2.getText() + "', odp3 = '" + ta_answear3.getText() + "', odp4 = '" + ta_answear4.getText()
+				+ "', prawidlowa_odp = '" + prawidlowa_odp + "' WHERE id_pytania = " + Integer.valueOf(tf_questionID.getText());
+		System.out.println(sql);
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
+		tbl_questionEdit.setVisible(false);
+		btn_questionEditSave.setVisible(false);
+		actionShowQuestions(event);
 	}
 
 	// Metoda anuluj¹ca wprowadzanie zmian/dodawanie pytania
 	@FXML
-	void actionQuestionCancel(ActionEvent event) {
+	void actionQuestionCancel(ActionEvent event) throws SQLException {
+		tbl_questionEdit.setVisible(true);
+		btn_questionEditSave.setVisible(true);
+		btn_newQuestion.setVisible(false);
+		tf_questionID.clear();
+		combo_questionLang.setValue(null);
+		ta_questionText.clear();
+		ta_answear1.clear();
+		ta_answear2.clear();
+		ta_answear3.clear();
+		ta_answear4.clear();
+		tf_questionTimestamp.clear();
+		rb_answearFalse.setSelected(true);
+		actionShowQuestions(event);
+		actionEditQuestion(event);
+	}
 
+	@FXML
+	void actionLogOut(ActionEvent event) {
+		try {
+			Stage stage = new Stage();
+			Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/LoginView.fxml"));
+			Scene scene = new Scene(parent);
+			stage.setScene(scene);
+			stage.setTitle("Reaktor PWN - Tester");
+			((Node) (event.getSource())).getScene().getWindow().hide();
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void initialize() {
