@@ -156,7 +156,7 @@ public class AdminController {
 	Connection conn = DBConnector.getConnection();
 	public ObservableList<Users> data;
 
-	// G³ówne menu:
+	// Gï¿½ï¿½wne menu:
 	@FXML
 	void actionUsers(MouseEvent event) {
 		view_users.setVisible(true);
@@ -175,7 +175,7 @@ public class AdminController {
 
 	}
 
-	// Wewn¹trz anchor_users:
+	// Wewnï¿½trz anchor_users:
 	@FXML
 	void actionDeleteUser(MouseEvent event) throws SQLException {
 		lbl_filterUser.setVisible(false);
@@ -261,9 +261,9 @@ public class AdminController {
 					rs.next();
 					if (rs.getString(1) != null) {
 						Alert view_error = new Alert(AlertType.ERROR);
-						view_error.setContentText("Taki login ju¿ istnieje w bazie, zmieñ login");
-						view_error.setHeaderText("B³¹d!");
-						view_error.setTitle("Okno b³êdu");
+						view_error.setContentText("Taki login juï¿½ istnieje w bazie, zmieï¿½ login");
+						view_error.setHeaderText("Bï¿½ï¿½d!");
+						view_error.setTitle("Okno bï¿½ï¿½du");
 						view_error.showAndWait();
 						break;
 					}
@@ -271,9 +271,9 @@ public class AdminController {
 				}
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wpisa³eœ loginu");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie wpisaï¿½eï¿½ loginu");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -281,9 +281,9 @@ public class AdminController {
 				haslo = tf_haslo.getText();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wpisa³eœ has³a");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie wpisaï¿½eï¿½ hasï¿½a");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -291,9 +291,9 @@ public class AdminController {
 				imie = tf_imie.getText();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie poda³eœ imienia");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie podaï¿½eï¿½ imienia");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -301,9 +301,9 @@ public class AdminController {
 				nazwisko = tf_nazwisko.getText();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie poda³eœ imienia");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie podaï¿½eï¿½ imienia");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -311,9 +311,9 @@ public class AdminController {
 				grupa = tf_grupa.getText();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie poda³eœ grupy");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie podaï¿½eï¿½ grupy");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -321,9 +321,9 @@ public class AdminController {
 				rola = combo_rola.getValue();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wybra³eœ roli");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie wybraï¿½eï¿½ roli");
+				view_error.setHeaderText("Bï¿½ï¿½d!");
+				view_error.setTitle("Okno bï¿½ï¿½du");
 				view_error.showAndWait();
 				break;
 			}
@@ -409,7 +409,7 @@ public class AdminController {
 		if (combo_rolaFiltr.getValue() != null) {
 			rola = combo_rolaFiltr.getValue();
 		}
-		// Budowa zapytania do filtrowania u¿ytkowników:
+		// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
 		String sql = "SELECT * FROM uzytkownicy WHERE 1 = 1";
 		if (!login.isEmpty()) {
 			sql += " AND login = '" + login + "'";

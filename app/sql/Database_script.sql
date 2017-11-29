@@ -33,7 +33,7 @@ CREATE TABLE pytania (
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-#select * from pytania;
+select * from pytania;
 
 CREATE TABLE wyniki (
     id_wynik INT AUTO_INCREMENT PRIMARY KEY,
