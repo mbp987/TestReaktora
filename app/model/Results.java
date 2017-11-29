@@ -6,12 +6,12 @@ public class Results {
 	private String login;
 	private String jezyk;
 	private Integer liczba_pytan;
-	private Float wynik;
+	private Integer wynik;
 	private String czas;
 
 	private Users user = new Users();
 
-	public Results(String login, String imie, String nazwisko, String grupa, Integer id_wynik, String jezyk, Integer liczba_pytan, Float wynik, String czas) {
+	public Results(String login, String imie, String nazwisko, String grupa, Integer id_wynik, String jezyk, Integer liczba_pytan, Integer wynik, String czas) {
 		super();
 		this.id_wynik = id_wynik;
 		this.login = login;
@@ -23,6 +23,13 @@ public class Results {
 		user.setNazwisko(nazwisko);
 		user.setGrupa(grupa);
 		user.setLogin(login);
+	}
+	
+	public Results(String grupa, String jezyk, Integer liczba_pytan, Integer wynik) {
+		user.setGrupa(grupa);
+		this.jezyk = jezyk;
+		this.liczba_pytan = liczba_pytan;
+		this.wynik = wynik;
 	}
 
 	public Integer getId_wynik() {
@@ -57,11 +64,11 @@ public class Results {
 		this.liczba_pytan = liczba_pytan;
 	}
 
-	public Float getWynik() {
+	public Integer getWynik() {
 		return wynik;
 	}
 
-	public void setWynik(Float wynik) {
+	public void setWynik(Integer wynik) {
 		this.wynik = wynik;
 	}
 
