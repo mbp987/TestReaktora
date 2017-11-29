@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import app.database.DBConnector;
@@ -312,7 +316,7 @@ public class AdminController {
 	private AnchorPane view_result_details;
 
 	@FXML
-	private ComboBox<Results> combo_result_user_credentials;
+	private ComboBox<String> combo_result_user_credentials;
 
 	@FXML
 	private Label lbl_result_table;
@@ -402,10 +406,10 @@ public class AdminController {
 	private Button btn_result_filter_clear;
 
 	@FXML
-	private ComboBox<Results> combo_result_grupa_filtr;
+	private ComboBox<String> combo_result_grupa_filtr;
 
 	@FXML
-	private ComboBox<Results> combo_result_jezyk_filtr;
+	private ComboBox<String> combo_result_jezyk_filtr;
 
 	@FXML
 	private TableView<Results> tbl_userResults;
@@ -437,15 +441,36 @@ public class AdminController {
 	@FXML
 	private TableColumn<Results, String> col_resultTime;
 
+	@FXML
+	private TableView<Results> tbl_groupResults;
+
+	@FXML
+	private TableColumn<Results, String> col_resultgroupGrupa;
+
+	@FXML
+	private TableColumn<Results, String> col_resultgroupJezyk;
+
+	@FXML
+	private TableColumn<Results, Integer> col_resultgroupLiczbaPytan;
+
+	@FXML
+	private TableColumn<Results, Integer> col_resultgroupSredniWynik;
+
 	// Dodane spoza scheletona
 	ObservableList<String> rola = FXCollections.observableArrayList("user", "admin");
 	ObservableList<String> lang = FXCollections.observableArrayList("BD", "Git", "Python", "FE", "Java", "Spring");
+	ObservableList<String> grupa;
+	ObservableList<String> jezyk;
+	ObservableList<String> nazwiskoImie;
+
 	Connection conn = DBConnector.getConnection();
 	public ObservableList<Users> usersList;
 	public ObservableList<Questions> questionsList;
 	public ObservableList<Results> resultsList;
 
-	// Gï¿½ï¿½wne menu:
+	HashMap<String, String> loginCredentials = new HashMap<>();
+
+	// G³ówne menu:
 	@FXML
 	void actionUsers(MouseEvent event) {
 		view_questions.setVisible(false);
@@ -1099,34 +1124,139 @@ public class AdminController {
 
 	// Metody Results:
 	@FXML
-	void actionResultClearFilter(ActionEvent event) {
-
+	void actionResultClearFilter(ActionEvent event) throws SQLException {
+		tf_result_user_login_filter.clear();
+		tf_result_user_imie_filter.clear();
+		tf_result_user_nazwisko_filter.clear();
+		combo_result_grupa_filtr.setValue(null);
+		combo_result_jezyk_filtr.setValue(null);
+		if (tf_result_user_login_filter.isVisible() != true) {
+			actionResultsAllGroups(event);
+			actionResultsFilterGroups(event);
+		} else {
+			actionResultsAllUsers(event);
+			actionResultsFilterUsers(event);
+		}
 	}
 
 	@FXML
-	void actionResultFilter(ActionEvent event) {
+	void actionResultFilter(ActionEvent event) throws SQLException {
+		if (tf_result_user_login_filter.isVisible() != true) {
+			PreparedStatement pstm = null;
+			resultsList = FXCollections.observableArrayList();
+			String grupa = "";
+			String jezyk = "";
+			System.out.println("combo grupa: " + combo_result_grupa_filtr.getValue());
+			if (combo_result_grupa_filtr.getValue() != null) {
+				grupa = combo_result_grupa_filtr.getValue();
+			}
+			if (combo_result_jezyk_filtr.getValue() != null) {
+				jezyk = combo_result_jezyk_filtr.getValue();
+			}
+			// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
+			String sql = "SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
+			if (!grupa.isEmpty()) {
+				sql += " AND grupa LIKE '" + grupa + "'";
+			}
+			if (!jezyk.isEmpty()) {
+				sql += " AND jezyk LIKE '" + jezyk + "'";
+			}
+			sql += " GROUP BY concat(grupa, jezyk)";
+			System.out.println(sql);
+			pstm = conn.prepareStatement(sql);
+			ResultSet rs = conn.createStatement().executeQuery(sql);
+			while (rs.next()) {
+				Integer wynik = Math.round(rs.getFloat(4) * 100);
+				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+			}
+			tbl_groupResults.setItems(null);
+			tbl_groupResults.setItems(resultsList);
+		} else {
+			PreparedStatement pstm = null;
+			resultsList = FXCollections.observableArrayList();
+			String login = "";
+			String imie = "";
+			String nazwisko = "";
+			String grupa = "";
+			String jezyk = "";
 
+			if (!Objects.isNull(tf_result_user_login_filter)) {
+				login = Util.convert(tf_result_user_login_filter.getText());
+			}
+			if (!Objects.isNull(tf_result_user_imie_filter)) {
+				imie = Util.convert(tf_result_user_imie_filter.getText());
+			}
+			if (!Objects.isNull(tf_result_user_nazwisko_filter)) {
+				nazwisko = Util.convert(tf_result_user_nazwisko_filter.getText());
+			}
+			if (combo_result_grupa_filtr.getValue() != null) {
+				grupa = combo_result_grupa_filtr.getValue();
+			}
+			if (combo_result_jezyk_filtr.getValue() != null) {
+				jezyk = combo_result_jezyk_filtr.getValue();
+			}
+			// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
+			String sql = "SELECT login, imie, nazwisko, grupa, id_wynik, jezyk, liczba_pytan, wynik, wyniki.czas FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
+			if (!login.isEmpty()) {
+				sql += " AND login LIKE '" + login + "'";
+			}
+			if (!imie.isEmpty()) {
+				sql += " AND imie LIKE '" + imie + "'";
+			}
+			if (!nazwisko.isEmpty()) {
+				sql += " AND nazwisko LIKE '" + nazwisko + "'";
+			}
+			if (!grupa.isEmpty()) {
+				sql += " AND grupa LIKE '" + grupa + "'";
+			}
+			if (!jezyk.isEmpty()) {
+				sql += " AND jezyk LIKE '" + jezyk + "'";
+			}
+			System.out.println(sql);
+			pstm = conn.prepareStatement(sql);
+			ResultSet rs = conn.createStatement().executeQuery(sql);
+			while (rs.next()) {
+				Integer wynik = Math.round(rs.getFloat(8) * 100);
+				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7),
+						wynik, rs.getString(9)));
+			}
+			tbl_userResults.setItems(null);
+			tbl_userResults.setItems(resultsList);
+		}
 	}
 
 	@FXML
-	void actionResultsAllGroups(ActionEvent event) {
-
+	void actionResultsAllGroups(ActionEvent event) throws SQLException {
+		combo_result_user_credentials.setValue(null);
+		tbl_userResults.setVisible(false);
+		tbl_groupResults.setVisible(true);
+		view_result_filter.setVisible(false);
+		resultsList = FXCollections.observableArrayList();
+		ResultSet rs = conn.createStatement().executeQuery(
+				"SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) GROUP BY concat(grupa, jezyk)");
+		while (rs.next()) {
+			Integer wynik = Math.round(rs.getFloat(4) * 100);
+			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+		}
+		tbl_groupResults.setItems(null);
+		tbl_groupResults.setItems(resultsList);
 	}
 
 	@FXML
 	void actionResultsAllUsers(ActionEvent event) throws SQLException {
+		combo_result_user_credentials.setValue(null);
 		tbl_userResults.setVisible(true);
 		view_result_details.setVisible(false);
 		view_result_filter.setVisible(false);
+		lbl_result_table.setVisible(true);
+		lbl_result_table.setText("Wyniki dla wszystkich u¿ytkowników");
 		resultsList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery(
 				"select login, imie, nazwisko, grupa, id_wynik, jezyk, liczba_pytan, wynik, wyniki.czas FROM wyniki LEFT JOIN uzytkownicy USING (login)");
 		while (rs.next()) {
-			// Results(String login, String imie, String nazwisko, String grupa,
-			// Integer id_wynik, String jezyk, Integer liczba_pytan, Float
-			// wynik, String czas)
-			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7),
-					rs.getFloat(8), rs.getString(9)));
+			Integer wynik = Math.round(rs.getFloat(8) * 100);
+			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), wynik,
+					rs.getString(9)));
 		}
 		tbl_userResults.setItems(null);
 		tbl_userResults.setItems(resultsList);
@@ -1134,11 +1264,12 @@ public class AdminController {
 
 	@FXML
 	void actionResultsFilterGroups(ActionEvent event) {
-
+		view_result_filter.setVisible(true);
 	}
 
 	@FXML
 	void actionResultsFilterUsers(ActionEvent event) {
+		view_result_filter.setVisible(true);
 
 	}
 
@@ -1151,10 +1282,35 @@ public class AdminController {
 		btn_result_show_all_users.setDisable(true);
 		btn_result_filter_users.setDisable(true);
 		combo_result_user_credentials.setDisable(true);
+		tf_result_user_login_filter.setVisible(false);
+		tf_result_user_imie_filter.setVisible(false);
+		tf_result_user_nazwisko_filter.setVisible(false);
+		tbl_userResults.setVisible(false);
 	}
 
 	@FXML
-	void actionResultsOneGroup(ActionEvent event) {
+	void actionResultsOneGroup(ActionEvent event) throws SQLException {
+		ResultSet rs;
+		PreparedStatement pstm = null;
+		Results selectedItem = tbl_groupResults.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			lbl_result_table.setVisible(true);
+			lbl_result_table.setText("Œrednie wyniki dla grupy " + selectedItem.getUser().getGrupa());
+			// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
+			String sql = "SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
+				sql += " AND grupa LIKE '" + selectedItem.getUser().getGrupa() + "' ";
+			sql += "GROUP BY concat(grupa, jezyk)";
+			System.out.println(sql);
+			pstm = conn.prepareStatement(sql);
+			rs = conn.createStatement().executeQuery(sql);
+			resultsList.clear();
+			while (rs.next()) {
+				Integer wynik = Math.round(rs.getFloat(4) * 100);
+				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+			}
+			tbl_groupResults.setItems(null);
+			tbl_groupResults.setItems(resultsList);
+		}
 
 	}
 
@@ -1162,11 +1318,36 @@ public class AdminController {
 	void actionResultsOneUser(ActionEvent event) throws SQLException {
 		ResultSet rs;
 		Results selectedItem = tbl_userResults.getSelectionModel().getSelectedItem();
-		if (selectedItem != null) {
+		String user = "";
+		String imie = "";
+		String nazwisko = "";
+		boolean flag = false;
+		lbl_result_table.setVisible(true);
+		System.out.println(combo_result_user_credentials.getValue());
+		if (combo_result_user_credentials.getValue() != null) {
+			tbl_userResults.getSelectionModel().clearSelection();
+			flag = true;
+			System.out.println(
+					"SELECT login, imie, nazwisko from uzytkownicy WHERE concat(nazwisko, ' ', imie) LIKE '" + combo_result_user_credentials.getValue() + "'");
+			rs = conn.createStatement().executeQuery(
+					"SELECT login, imie, nazwisko from uzytkownicy WHERE concat(nazwisko, ' ', imie) LIKE '" + combo_result_user_credentials.getValue() + "'");
+			while (rs.next()) {
+				user = rs.getString(1);
+				imie = rs.getString(2);
+				nazwisko = rs.getString(3);
+			}
+			view_result_details.setVisible(true);
+			view_result_filter.setVisible(false);
+			lbl_result_table.setText("Œrednie wyniki dla " + imie + " " + nazwisko);
+			combo_result_user_credentials.setValue(null);
+		} else if (selectedItem != null) {
+			flag = true;
 			view_result_details.setVisible(true);
 			view_result_filter.setVisible(false);
 			lbl_result_table.setText("Œrednie wyniki dla " + selectedItem.getUser().getImie() + " " + selectedItem.getUser().getNazwisko());
-			String user = selectedItem.getLogin();
+			user = selectedItem.getLogin();
+		}
+		if (flag) {
 			// Liczba testów / wszystkie
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where login = '" + user + "'");
 			while (rs.next()) {
@@ -1378,6 +1559,11 @@ public class AdminController {
 		btn_result_show_all_users.setDisable(false);
 		btn_result_filter_users.setDisable(false);
 		combo_result_user_credentials.setDisable(false);
+		tf_result_user_login_filter.setVisible(true);
+		tf_result_user_imie_filter.setVisible(true);
+		tf_result_user_nazwisko_filter.setVisible(true);
+		tbl_userResults.setVisible(true);
+		tbl_groupResults.setVisible(false);
 	}
 
 	@FXML
@@ -1387,7 +1573,7 @@ public class AdminController {
 			Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/LoginView.fxml"));
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
-			stage.setTitle("Reaktor PWN - Tester");
+			stage.setTitle("Test Reaktora");
 			((Node) (event.getSource())).getScene().getWindow().hide();
 			stage.show();
 		} catch (Exception e) {
@@ -1395,12 +1581,47 @@ public class AdminController {
 		}
 	}
 
-	public void initialize() {
-		System.out.println("initialize");
+	public void initialize() throws SQLException {
+		System.out.println("initializing...");
 		tbl_edit.setVisible(false);
 		combo_rola.setItems(rola);
 		combo_rolaFiltr.setItems(rola);
 		combo_questionLang.setItems(lang);
+		// Inicjalizacja combo_result_grupa_filtr:
+		ResultSet rs = conn.createStatement().executeQuery("SELECT grupa FROM wyniki LEFT JOIN uzytkownicy USING (login) GROUP BY grupa");
+		List<String> grupaTempList = new ArrayList<>();
+		grupaTempList.add("");
+		while (rs.next()) {
+			String current = rs.getString(1);
+			grupaTempList.add(current);
+		}
+		grupa = FXCollections.observableArrayList(grupaTempList);
+		combo_result_grupa_filtr.setItems(grupa);
+		// Inicjalizacja combo_result_jezyk_filtr:
+		rs = conn.createStatement().executeQuery("SELECT jezyk FROM wyniki GROUP by jezyk");
+		List<String> jezykTempList = new ArrayList<>();
+		jezykTempList.add("");
+		while (rs.next()) {
+			String current = rs.getString(1);
+			jezykTempList.add(current);
+		}
+		jezyk = FXCollections.observableArrayList(jezykTempList);
+		combo_result_jezyk_filtr.setItems(jezyk);
+		// Inicjalizacja combo_result_user_credentials:
+		rs = conn.createStatement()
+				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
+		List<String> credentialsTempList = new ArrayList<>();
+		credentialsTempList.add("");
+		while (rs.next()) {
+			String current = rs.getString(1);
+			credentialsTempList.add(current);
+			loginCredentials.put(rs.getString(2), current);
+		}
+		nazwiskoImie = FXCollections.observableArrayList(credentialsTempList);
+		combo_result_user_credentials.setItems(nazwiskoImie);
+		// Inicjalizacja tabel
+		tbl_userResults.setItems(null);
+		tbl_userResults.setItems(resultsList);
 		col_login.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
 		col_haslo.setCellValueFactory(new PropertyValueFactory<Users, String>("haslo"));
 		col_haslo.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -1509,8 +1730,7 @@ public class AdminController {
 			}
 		});
 		col_questionTimestamp.setCellValueFactory(new PropertyValueFactory<Questions, String>("czas"));
-
-		// Tabela wyników:
+		// Tabela wyników u¿ytkowników:
 		col_resultLogin.setCellValueFactory(new PropertyValueFactory<Results, String>("login"));
 		col_resultImie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getImie()));
 		col_resultNazwisko.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getNazwisko()));
@@ -1520,6 +1740,12 @@ public class AdminController {
 		col_resultLiczbaPytan.setCellValueFactory(new PropertyValueFactory<Results, Integer>("liczba_pytan"));
 		col_resultWynik.setCellValueFactory(new PropertyValueFactory<Results, Float>("wynik"));
 		col_resultTime.setCellValueFactory(new PropertyValueFactory<Results, String>("czas"));
+		// Tabela wyników grup:
+		col_resultgroupGrupa.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getGrupa()));
+		col_resultgroupJezyk.setCellValueFactory(new PropertyValueFactory<Results, String>("jezyk"));
+		col_resultgroupLiczbaPytan.setCellValueFactory(new PropertyValueFactory<Results, Integer>("liczba_pytan"));
+		col_resultgroupSredniWynik.setCellValueFactory(new PropertyValueFactory<Results, Integer>("wynik"));
+		System.out.println("initializing completed!");
 	}
 
 }
