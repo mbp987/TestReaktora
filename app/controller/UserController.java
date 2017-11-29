@@ -179,13 +179,15 @@ public class UserController {
 		}
 		System.out.println(string_jezykow);
 		
-		Random random = new Random();
-
+		
+		
 		//pobranie liczby pytan, ktore maja byc losowane
 		//System.out.println(spin_liczba.getValue());
 		int liczba_pytan = (spin_liczba.getValue());
 		
-		
+		//losowanie pytan
+		Random random = new Random();
+
 		
 		
 		
@@ -194,7 +196,15 @@ public class UserController {
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(string_jezykow);
 		
-		System.out.println(rs);
+		
+		while(rs.next()) {
+            System.out.println(rs.getString("jezyk") + " " + rs.getString("tresc")); //do przerobienia
+        }
+        rs.close();
+
+        stmt.close();
+        conn.close();
+		//System.out.println(rs);
 		
 	    
 	 //   int select = random.nextInt(tablicaList.length); 
