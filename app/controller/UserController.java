@@ -125,7 +125,7 @@ public class UserController {
 		
 		String [] tablica = new String [6];
 		
-		ArrayList tablicaList = new ArrayList();
+		ArrayList <String>tablicaList = new ArrayList<String>();
 		
 		int i = 0;
 		
@@ -165,7 +165,37 @@ public class UserController {
 		int liczba_jezykow = tablicaList.size();
 		
 		
-		//stworzenie stringa z wybranych przez uzytkownika jezykow
+		//stworzenie stringa z wybranych przez uzytkownika jezykow PROBLEM-PROBLEM-PROBLEM
+		
+		String string_jezykow = null;
+		
+		int n = 0;
+		
+		string_jezykow = tablica[n];
+		
+		if (tablica[n] != null);
+			if (tablicaList.size() > 1) {
+				string_jezykow = string_jezykow + "','";
+				n += 1;
+				string_jezykow += tablica[n];
+				
+			}
+			
+			
+			
+			//n = tablica.size();
+			//
+			//SELECT * FROM pytania WHERE jezyk IN ('Java','Python');	
+			
+		System.out.println(string_jezykow);
+			
+		System.out.println(tablica[0]);
+		System.out.println(tablica[1]);
+		System.out.println(tablica[2]);
+		System.out.println(tablica[3]);
+		System.out.println(tablica[4]);
+		System.out.println(tablica[5]);
+		
 		
 		
 		
@@ -189,7 +219,7 @@ public class UserController {
 		ObservableList<String> jezyk = FXCollections.observableArrayList("Bazy", "Git", "Python", "Front", "Java", "Spring");
 		Connection conn = DBConnector.getConnection();
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM pytania;");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM pytania WHERE jezyk IN ('Java','Python');");
 		
 		System.out.println(rs);
 		
