@@ -164,47 +164,20 @@ public class UserController {
 		//System.out.println(tablicaList.size());
 		int liczba_jezykow = tablicaList.size();
 		
-		
-		//stworzenie stringa z wybranych przez uzytkownika jezykow PROBLEM-PROBLEM-PROBLEM
-		
-		String string_jezykow = null;
-		
-		int n = 0;
-		
-		string_jezykow = tablica[n];
-		
-		if (tablica[n] != null);
-			if (tablicaList.size() > 1) {
-				string_jezykow = string_jezykow + "','";
-				n += 1;
-				string_jezykow += tablica[n];
-				
+		//stworzenie stringa z wybranych przez uzytkownika jezykow
+		String string_jezykow = "";
+		if (liczba_jezykow == 1) {
+			string_jezykow = "SELECT * FROM pytania WHERE jezyk LIKE '" + tablicaList.get(0) + "'";
+		} else {
+			for (int k = 0; k < liczba_jezykow; k++) {
+				if (k == 0) {
+					string_jezykow = "SELECT * FROM pytania WHERE jezyk LIKE '" + tablicaList.get(0) + "'";
+				} else {
+					string_jezykow += " OR jezyk LIKE '" + tablicaList.get(k) + "'";
+				}
 			}
-			
-			
-			
-			//n = tablica.size();
-			//
-			//SELECT * FROM pytania WHERE jezyk IN ('Java','Python');	
-			
+		}
 		System.out.println(string_jezykow);
-			
-		System.out.println(tablica[0]);
-		System.out.println(tablica[1]);
-		System.out.println(tablica[2]);
-		System.out.println(tablica[3]);
-		System.out.println(tablica[4]);
-		System.out.println(tablica[5]);
-		
-		
-		
-		
-		
-		
-		
-		
-			
-		
 		
 		Random random = new Random();
 
@@ -219,7 +192,7 @@ public class UserController {
 		ObservableList<String> jezyk = FXCollections.observableArrayList("Bazy", "Git", "Python", "Front", "Java", "Spring");
 		Connection conn = DBConnector.getConnection();
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM pytania WHERE jezyk IN ('Java','Python');");
+		ResultSet rs = stmt.executeQuery(string_jezykow);
 		
 		System.out.println(rs);
 		
