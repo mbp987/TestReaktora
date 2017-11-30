@@ -17,9 +17,9 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			// Osadzenie sceny na stage'u
 			primaryStage.setScene(scene);
-			// Dodanie tytu�u
+			// Dodanie tytułu
 			primaryStage.setTitle("Test Reaktora");
-			// Ustawienie widoczno�ci aplikacji
+			// Ustawienie widoczności aplikacji
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

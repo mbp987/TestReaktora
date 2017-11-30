@@ -4,26 +4,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="login_window" maxHeight="-Infinity"
-	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="256.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/9.0.1"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane fx:id="login_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
 	<children>
-		<TextField fx:id="tf_login" layoutX="152.0" layoutY="41.0" />
-		<PasswordField fx:id="pf_pass" layoutX="152.0" layoutY="132.0" />
-		<TextField fx:id="tf_pass" layoutX="152.0" layoutY="132.0"
-			visible="false" />
-		<Button fx:id="btn_login" layoutX="152.0" layoutY="200.0"
-			mnemonicParsing="false" onKeyPressed="#actionKeyLogin"
-			onMouseClicked="#buttonLogin" prefHeight="25.0" prefWidth="149.0"
-			text="Login" />
-		<Label alignment="CENTER" layoutX="152.0" layoutY="14.0"
-			prefHeight="17.0" prefWidth="149.0" text="Login" />
-		<Label alignment="CENTER" layoutX="152.0" layoutY="104.0"
-			prefHeight="17.0" prefWidth="149.0" text="Password" />
-		<Button fx:id="btn_show" layoutX="315.0" layoutY="132.0"
-			mnemonicParsing="false" onMouseClicked="#showPass" text="show" />
+		<TextField fx:id="tf_login" alignment="CENTER" layoutX="136.0" layoutY="73.0" />
+		<PasswordField fx:id="pf_pass" alignment="CENTER" layoutX="136.0" layoutY="146.0" />
+		<TextField fx:id="tf_pass" alignment="CENTER" layoutX="136.0" layoutY="146.0" visible="false" />
+		<Button fx:id="btn_login" layoutX="145.0" layoutY="202.0" mnemonicParsing="false" onKeyPressed="#actionKeyLogin" onMouseClicked="#buttonLogin" prefHeight="25.0" prefWidth="149.0" text="Wchodzę..." />
+		<Label alignment="CENTER" layoutX="145.0" layoutY="43.0" prefHeight="17.0" prefWidth="149.0" text="Email" />
+		<Label alignment="CENTER" layoutX="145.0" layoutY="119.0" prefHeight="17.0" prefWidth="149.0" text="Hasło" />
+		<Button fx:id="btn_show" layoutX="319.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#showPass" text="pokaż" />
+      <ImageView fitHeight="97.0" fitWidth="95.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../W_FX5/img/logo.png" />
+         </image>
+      </ImageView>
 	</children>
 </AnchorPane>

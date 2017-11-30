@@ -160,9 +160,9 @@ public class UserController {
 		}
 		if (tablicaList.size() == 0) {
 			Alert view_error = new Alert(AlertType.ERROR);
-			view_error.setContentText("Nie wybra³eœ ¿adnego jêzyka");
-			view_error.setHeaderText("B³¹d!");
-			view_error.setTitle("Okno b³êdu");
+			view_error.setContentText("Nie wybrano Å¼adnego jÄ™zyka");
+			view_error.setHeaderText("BÅ‚Ä…d!");
+			view_error.setTitle("Okno bÅ‚Ä™du");
 			view_error.showAndWait();
 		} else {
 			// pobranie liczby elementow tablicy utworzonej z wybranych jezykow
@@ -189,7 +189,7 @@ public class UserController {
 			// pobranie liczby pytan, ktore maja byc losowane
 			// System.out.println(spin_liczba.getValue());
 			liczba_pytan = (spin_liczba.getValue());
-			System.out.println("liczba pytañ: " + liczba_pytan);
+			System.out.println("liczba pytaÅ„: " + liczba_pytan);
 			// losowanie pytan
 			LinkedList<Questions> allQuestionsList = new LinkedList<>();
 			ResultSet rs = conn.createStatement().executeQuery(string_jezykow);
@@ -199,7 +199,7 @@ public class UserController {
 			}
 			int iloscWszystkichPytan = allQuestionsList.size();
 			System.out.println("wszystkich " + iloscWszystkichPytan);
-			// Losowanie pytañ z listy do testu:
+			// Losowanie pytaÅ„ z listy do testu:
 			Random random = new Random();
 			int temp;
 			for (int i = 0; i < liczba_pytan; i++) {
@@ -216,7 +216,7 @@ public class UserController {
 
 	private void setQuestion(Questions question) {
 		rb_false.setSelected(true);
-		l_nrpytania.setText("Pytanie nr " + licznik + " z " + liczba_pytan + ", jêzyk: " + question.getJezyk());
+		l_nrpytania.setText("Pytanie nr " + licznik + " z " + liczba_pytan + " - jÄ™zyk: " + question.getJezyk());
 		l_tresc.setText(question.getTresc());
 		l_odp1.setText(question.getOdp1());
 		l_odp2.setText(question.getOdp2());
@@ -230,7 +230,7 @@ public class UserController {
 		PreparedStatement pstm = null;
 		System.out.println("rozmiar: " + questionsTest.size());
 		if (questionsTest.size() == 1) {
-			btn_next.setText("ZatwierdŸ i zakoñcz test");
+			btn_next.setText("ZatwierdÅº i zakoÅ„cz test");
 		}
 		if (questionsTest.size() != 0) {
 			String prawidlowa_odp = "";
@@ -248,7 +248,7 @@ public class UserController {
 				flag = true;
 			}
 			if (flag) {
-				// Sprawdzenie prawid³owej odpowiedzi:
+				// Sprawdzenie prawidÅ‚owej odpowiedzi:
 				// Statement stmt = db.createStatement();
 				String sql = "SELECT prawidlowa_odp FROM pytania WHERE tresc LIKE \"" + Util.sqlconvert(l_tresc.getText()) + "\" AND odp1 LIKE \""
 						+ Util.sqlconvert(l_odp1.getText()) + "\" AND odp2 LIKE \"" + Util.sqlconvert(l_odp2.getText()) + "\" AND odp3 LIKE \""
@@ -272,14 +272,14 @@ public class UserController {
 				}
 				// Pobranie kolejnego pytania z kolejki:
 				regular = questionsTest.poll();
-				// Za³adowanie nowego pytania:
+				// ZaÅ‚adowanie nowego pytania:
 				licznik++;
 				setQuestion(regular);
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wybra³eœ ¿adnej odpowiedzi");
-				view_error.setHeaderText("B³¹d!");
-				view_error.setTitle("Okno b³êdu");
+				view_error.setContentText("Nie wybrano Å¼adnej odpowiedzi");
+				view_error.setHeaderText("BÅ‚ad!");
+				view_error.setTitle("Okno bÅ‚edu");
 				view_error.showAndWait();
 			}
 
@@ -302,7 +302,7 @@ public class UserController {
 					flag = true;
 				}
 				if (flag) {
-					// Sprawdzenie prawid³owej odpowiedzi:
+					// Sprawdzenie prawidÅ‚owej odpowiedzi:
 					// Statement stmt = db.createStatement();
 					String sql = "SELECT prawidlowa_odp FROM pytania WHERE tresc LIKE '" + Util.sqlconvert(l_tresc.getText()) + "' AND odp1 LIKE '"
 							+ Util.sqlconvert(l_odp1.getText()) + "' AND odp2 LIKE '" + Util.sqlconvert(l_odp2.getText()) + "' AND odp3 LIKE '"
@@ -317,7 +317,7 @@ public class UserController {
 							licznik_prawidlowych++;
 						}
 					}
-					// Zapisanie wyniku do bazy rezultatów:
+					// Zapisanie wyniku do bazy rezultatÃ³w:
 					Float wynik = (float) licznik_prawidlowych / liczba_pytan;
 					sql = "INSERT INTO wyniki (login, jezyk, liczba_pytan, wynik) VALUES ('" + LoginController.login + "', '" + jezyki_wynikow + "', "
 							+ liczba_pytan + ", " + wynik + ")";
@@ -328,14 +328,14 @@ public class UserController {
 					{
 						Integer procent = Integer.valueOf(Math.round((float) licznik_prawidlowych / liczba_pytan * 100));
 						Alert view_result = new Alert(AlertType.INFORMATION);
-						view_result.setContentText("Udzieli³eœ ³¹cznie " + licznik_prawidlowych + " odpowiedzi z " + liczba_pytan + " pytañ ³¹cznie" + ", tj. "
-								+ procent + "% wszystkich odpowiedzi by³o poprawnych");
+						view_result.setContentText("Udzielono Å‚Ä…cznie " + licznik_prawidlowych + " odpowiedzi na " + liczba_pytan + " pytaÅ„ Å‚acznie" + ", czyli "
+								+ procent + "% wszystkich odpowiedzi byÅ‚o poprawnych");
 						view_result.setHeaderText("Koniec testu");
 						view_result.setTitle("Wynik testu");
 						view_result.showAndWait();
 					}
 					licznik = 1;
-					// Widocznoœæ pól - reset do stanu wyjœciowego:
+					// WidocznoÅ›Ä‡ pÃ³l - reset do stanu wyjÅ›ciowego:
 					l_tresc.setVisible(false);
 					l_nrpytania.setVisible(false);
 					rb_odp1.setVisible(false);
@@ -348,7 +348,7 @@ public class UserController {
 					l_odp4.setVisible(false);
 					btn_next.setVisible(false);
 					btn_next.setVisible(false);
-					btn_next.setText("Nastêpne pytanie");
+					btn_next.setText("NastÄ™pne pytanie");
 					btn_start.setVisible(true);
 					cb_bazy.setDisable(false);
 					cb_git.setDisable(false);
@@ -359,9 +359,9 @@ public class UserController {
 					spin_liczba.setDisable(false);
 				} else {
 					Alert view_error = new Alert(AlertType.ERROR);
-					view_error.setContentText("Nie wybra³eœ ¿adnej odpowiedzi");
-					view_error.setHeaderText("B³¹d!");
-					view_error.setTitle("Okno b³êdu");
+					view_error.setContentText("Nie wybrano Å¼adnej odpowiedzi");
+					view_error.setHeaderText("BÅ‚Ä…d!");
+					view_error.setTitle("Okno bÅ‚Ä™du");
 					view_error.showAndWait();
 				}
 			}
