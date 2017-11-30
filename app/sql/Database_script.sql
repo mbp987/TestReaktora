@@ -62,6 +62,18 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Java', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
@@ -71,6 +83,18 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Spring', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
@@ -80,25 +104,18 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
-
-
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 3', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 4', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 5', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
-
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 3', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 4', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 5', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
-insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Git', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
@@ -108,6 +125,18 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('BD', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
 
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
@@ -117,6 +146,40 @@ insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
 insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('FE', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 1', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 2', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 3', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 4', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 5', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 6', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 7', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 8', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 9', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 10', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 11', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'czwarta');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 12', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 13', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 14', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 15', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 16', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 17', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 18', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'trzecia');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 19', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'druga');
+insert into pytania(jezyk, tresc, odp1, odp2, odp3, odp4, prawidlowa_odp) values ('Python', 'Treść pytania numer 20', 'pierwsza', 'druga', 'trzecia', 'czwarta ', 'pierwsza');
+
 
 insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Python', 20, 0.75);
 insert into wyniki (login, jezyk, liczba_pytan, wynik) values ('a.adamska@wp.pl', 'Python', 30, 0.85);

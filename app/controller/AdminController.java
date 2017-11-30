@@ -1607,7 +1607,7 @@ public class AdminController {
 		grupa = FXCollections.observableArrayList(grupaTempList);
 		combo_result_grupa_filtr.setItems(grupa);
 		// Inicjalizacja combo_result_jezyk_filtr:
-		rs = conn.createStatement().executeQuery("SELECT jezyk FROM wyniki GROUP by jezyk");
+		rs = conn.createStatement().executeQuery("SELECT jezyk FROM wyniki GROUP BY jezyk");
 		List<String> jezykTempList = new ArrayList<>();
 		jezykTempList.add("");
 		while (rs.next()) {
@@ -1617,8 +1617,8 @@ public class AdminController {
 		jezyk = FXCollections.observableArrayList(jezykTempList);
 		combo_result_jezyk_filtr.setItems(jezyk);
 		// Inicjalizacja combo_result_user_credentials:
-		rs = conn.createStatement()
-				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
+//		rs = conn.createStatement()
+//				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
 		List<String> credentialsTempList = new ArrayList<>();
 		credentialsTempList.add("");
 		while (rs.next()) {
