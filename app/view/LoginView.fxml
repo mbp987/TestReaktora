@@ -8,19 +8,32 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="login_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane fx:id="login_window" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="256.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/9.0.1"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
 	<children>
-		<TextField fx:id="tf_login" alignment="CENTER" layoutX="284.0" layoutY="66.0" />
-		<PasswordField fx:id="pf_pass" alignment="CENTER" layoutX="284.0" layoutY="139.0" />
-		<TextField fx:id="tf_pass" alignment="CENTER" layoutX="279.0" layoutY="139.0" visible="false" />
-		<Button fx:id="btn_login" layoutX="293.0" layoutY="195.0" mnemonicParsing="false" onKeyPressed="#actionKeyLogin" onMouseClicked="#buttonLogin" prefHeight="25.0" prefWidth="149.0" text="Wchodzę..." />
-		<Label alignment="CENTER" layoutX="293.0" layoutY="36.0" prefHeight="17.0" prefWidth="149.0" text="E-mail" />
-		<Label alignment="CENTER" layoutX="293.0" layoutY="112.0" prefHeight="17.0" prefWidth="149.0" text="Hasło" />
-		<Button fx:id="btn_show" layoutX="467.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#showPass" text="pokaż" />
-      <ImageView fitHeight="204.0" fitWidth="208.0" layoutX="28.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../W_FX5/img/logo.png" />
-         </image>
-      </ImageView>
+		<TextField fx:id="tf_login" alignment="CENTER" layoutX="279.0"
+			layoutY="66.0" />
+		<PasswordField fx:id="pf_pass" alignment="CENTER"
+			layoutX="279.0" layoutY="139.0" />
+		<TextField fx:id="tf_pass" alignment="CENTER" layoutX="279.0"
+			layoutY="139.0" visible="false" />
+		<Button fx:id="btn_login" layoutX="279.0" layoutY="195.0"
+			mnemonicParsing="false" onKeyPressed="#actionKeyLogin"
+			onMouseClicked="#buttonLogin" prefHeight="25.0" prefWidth="149.0"
+			text="Wchodzę..." />
+		<Label alignment="CENTER" layoutX="279.0" layoutY="36.0"
+			prefHeight="17.0" prefWidth="149.0" text="Login" />
+		<Label alignment="CENTER" layoutX="279.0" layoutY="112.0"
+			prefHeight="17.0" prefWidth="149.0" text="Hasło" />
+		<Button fx:id="btn_show" layoutX="462.0" layoutY="139.0"
+			mnemonicParsing="false" onMouseClicked="#showPass" text="pokaż" />
+		<ImageView fitHeight="201.0" fitWidth="203.0" layoutX="28.0"
+			layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../../../W_FX5/img/logo.png" />
+			</image>
+		</ImageView>
 	</children>
 </AnchorPane>

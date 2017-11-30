@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -160,9 +159,9 @@ public class UserController {
 		}
 		if (tablicaList.size() == 0) {
 			Alert view_error = new Alert(AlertType.ERROR);
-			view_error.setContentText("Nie wybrano Å¼adnego jÄ™zyka");
-			view_error.setHeaderText("BÅ‚Ä…d!");
-			view_error.setTitle("Okno bÅ‚Ä™du");
+			view_error.setContentText("Nie wybrano ¿adnego jêzyka");
+			view_error.setHeaderText("B³¹d!");
+			view_error.setTitle("Okno b³êdu");
 			view_error.showAndWait();
 		} else {
 			// pobranie liczby elementow tablicy utworzonej z wybranych jezykow
@@ -185,11 +184,9 @@ public class UserController {
 					}
 				}
 			}
-			System.out.println(string_jezykow);
 			// pobranie liczby pytan, ktore maja byc losowane
 			// System.out.println(spin_liczba.getValue());
 			liczba_pytan = (spin_liczba.getValue());
-			System.out.println("liczba pytaÅ„: " + liczba_pytan);
 			// losowanie pytan
 			LinkedList<Questions> allQuestionsList = new LinkedList<>();
 			ResultSet rs = conn.createStatement().executeQuery(string_jezykow);
@@ -198,8 +195,7 @@ public class UserController {
 						rs.getString(7), rs.getString(8), rs.getString(9)));
 			}
 			int iloscWszystkichPytan = allQuestionsList.size();
-			System.out.println("wszystkich " + iloscWszystkichPytan);
-			// Losowanie pytaÅ„ z listy do testu:
+			// Losowanie pytañ z listy do testu:
 			Random random = new Random();
 			int temp;
 			for (int i = 0; i < liczba_pytan; i++) {
@@ -216,7 +212,7 @@ public class UserController {
 
 	private void setQuestion(Questions question) {
 		rb_false.setSelected(true);
-		l_nrpytania.setText("Pytanie nr " + licznik + " z " + liczba_pytan + " - jÄ™zyk: " + question.getJezyk());
+		l_nrpytania.setText("Pytanie nr " + licznik + " z " + liczba_pytan + " - jêzyk: " + question.getJezyk());
 		l_tresc.setText(question.getTresc());
 		l_odp1.setText(question.getOdp1());
 		l_odp2.setText(question.getOdp2());
@@ -228,9 +224,8 @@ public class UserController {
 	void nextQuest(ActionEvent event) throws SQLException {
 		boolean flag = false;
 		PreparedStatement pstm = null;
-		System.out.println("rozmiar: " + questionsTest.size());
 		if (questionsTest.size() == 1) {
-			btn_next.setText("ZatwierdÅº i zakoÅ„cz test");
+			btn_next.setText("ZatwierdŸ i zakoñcz test");
 		}
 		if (questionsTest.size() != 0) {
 			String prawidlowa_odp = "";
@@ -277,9 +272,9 @@ public class UserController {
 				setQuestion(regular);
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wybrano Å¼adnej odpowiedzi");
-				view_error.setHeaderText("BÅ‚ad!");
-				view_error.setTitle("Okno bÅ‚edu");
+				view_error.setContentText("Nie wybrano ¿adnej odpowiedzi");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 			}
 
@@ -302,7 +297,7 @@ public class UserController {
 					flag = true;
 				}
 				if (flag) {
-					// Sprawdzenie prawidÅ‚owej odpowiedzi:
+					// Sprawdzenie prawid³owej odpowiedzi:
 					// Statement stmt = db.createStatement();
 					String sql = "SELECT prawidlowa_odp FROM pytania WHERE tresc LIKE '" + Util.sqlconvert(l_tresc.getText()) + "' AND odp1 LIKE '"
 							+ Util.sqlconvert(l_odp1.getText()) + "' AND odp2 LIKE '" + Util.sqlconvert(l_odp2.getText()) + "' AND odp3 LIKE '"
@@ -328,14 +323,14 @@ public class UserController {
 					{
 						Integer procent = Integer.valueOf(Math.round((float) licznik_prawidlowych / liczba_pytan * 100));
 						Alert view_result = new Alert(AlertType.INFORMATION);
-						view_result.setContentText("Udzielono Å‚Ä…cznie " + licznik_prawidlowych + " odpowiedzi na " + liczba_pytan + " pytaÅ„ Å‚acznie" + ", czyli "
-								+ procent + "% wszystkich odpowiedzi byÅ‚o poprawnych");
+						view_result.setContentText("Udzielono ³¹cznie " + licznik_prawidlowych + " odpowiedzi na " + liczba_pytan + " pytañ ³¹cznie" 
+						+ ", czyli " + procent + "% wszystkich odpowiedzi by³o poprawnych");
 						view_result.setHeaderText("Koniec testu");
 						view_result.setTitle("Wynik testu");
 						view_result.showAndWait();
 					}
 					licznik = 1;
-					// WidocznoÅ›Ä‡ pÃ³l - reset do stanu wyjÅ›ciowego:
+					// Widocznoœæ pól - reset do stanu wyjœciowego:
 					l_tresc.setVisible(false);
 					l_nrpytania.setVisible(false);
 					rb_odp1.setVisible(false);
@@ -359,9 +354,9 @@ public class UserController {
 					spin_liczba.setDisable(false);
 				} else {
 					Alert view_error = new Alert(AlertType.ERROR);
-					view_error.setContentText("Nie wybrano Å¼adnej odpowiedzi");
-					view_error.setHeaderText("BÅ‚Ä…d!");
-					view_error.setTitle("Okno bÅ‚Ä™du");
+					view_error.setContentText("Nie wybrano ¿adnej odpowiedzi");
+					view_error.setHeaderText("B³¹d!");
+					view_error.setTitle("Okno b³êdu");
 					view_error.showAndWait();
 				}
 			}
