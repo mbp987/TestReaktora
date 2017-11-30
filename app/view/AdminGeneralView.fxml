@@ -175,7 +175,7 @@
 				<Button fx:id="btn_editQuestion" layoutX="334.0" layoutY="6.0" mnemonicParsing="false" onAction="#actionEditQuestion" prefWidth="150.0" text="Edytuj pytanie / Filtruj" />
 				<Button fx:id="btn_deleteQuestion" layoutX="494.0" layoutY="6.0" mnemonicParsing="false" onAction="#actionDeleteQuestion" prefWidth="150.0" text="Usuń pytanie" />
 				<Button fx:id="btn_commitQuestion" layoutX="654.0" layoutY="6.0" mnemonicParsing="false" onAction="#actionCommitQuestion" prefWidth="150.0" text="Zapisz zmiany" />
-				<TableView fx:id="tbl_questions" editable="true" layoutX="14.0" layoutY="231.0" prefHeight="412.0" prefWidth="901.0">
+				<TableView fx:id="tbl_questions" editable="true" layoutX="14.0" layoutY="252.0" prefHeight="391.0" prefWidth="901.0">
 					<columns>
 						<TableColumn fx:id="col_questionId" editable="false" prefWidth="42.0" text="ID" />
 						<TableColumn fx:id="col_questionLang" prefWidth="55.0" text="Język" />
@@ -188,95 +188,96 @@
 						<TableColumn fx:id="col_questionTimestamp" prefWidth="132.0" text="Czas" />
 					</columns>
 				</TableView>
-				<AnchorPane fx:id="tbl_questionEdit" layoutX="14.0" layoutY="35.0" prefHeight="240.0" prefWidth="901.0" visible="false">
+				<AnchorPane fx:id="tbl_questionEdit" layoutX="14.0" layoutY="41.0" prefHeight="233.0" prefWidth="909.0" visible="false">
 					<children>
-						<TextField fx:id="tf_questionID" disable="true" layoutX="80.0" layoutY="4.0" prefHeight="25.0" prefWidth="70.0" promptText="ID" />
-						<ComboBox fx:id="combo_questionLang" layoutX="213.0" layoutY="4.0" prefHeight="25.0" prefWidth="100.0" />
-						<TextArea fx:id="ta_questionText" layoutX="80.0" layoutY="40.0" prefHeight="20.0" prefWidth="553.0" promptText="Treść pytania">
+						<TextField fx:id="tf_questionID" disable="true" layoutX="40.0" layoutY="13.0" prefHeight="27.0" prefWidth="110.0" promptText="ID" />
+						<ComboBox fx:id="combo_questionLang" layoutX="60.0" layoutY="50.0" prefHeight="27.0" prefWidth="90.0" />
+						<TextArea fx:id="ta_questionText" layoutX="260.0" layoutY="13.0" prefHeight="24.0" prefWidth="543.0" promptText="Treść pytania">
 							<font>
 								<Font size="10.0" />
 							</font>
 						</TextArea>
-						<TextArea fx:id="ta_answear1" layoutX="80.0" layoutY="80.0" prefHeight="20.0" prefWidth="553.0" promptText="Odpowiedź nr 1">
+						<TextArea fx:id="ta_answear1" layoutX="260.0" layoutY="50.0" prefHeight="24.0" prefWidth="543.0" promptText="Odpowiedź nr 1">
 							<font>
 								<Font size="10.0" />
 							</font>
 						</TextArea>
-						<TextArea fx:id="ta_answear2" layoutX="80.0" layoutY="120.0" prefHeight="20.0" prefWidth="553.0" promptText="Odpowiedź nr 2">
+						<TextArea fx:id="ta_answear2" layoutX="260.0" layoutY="87.0" prefHeight="24.0" prefWidth="543.0" promptText="Odpowiedź nr 2">
 							<font>
 								<Font size="10.0" />
 							</font>
 						</TextArea>
-						<TextArea fx:id="ta_answear3" layoutX="80.0" layoutY="160.0" prefHeight="20.0" prefWidth="553.0" promptText="Odpowiedź nr 3">
+						<TextArea fx:id="ta_answear3" layoutX="260.0" layoutY="124.0" prefHeight="24.0" prefWidth="543.0" promptText="Odpowiedź nr 3">
 							<font>
 								<Font size="10.0" />
 							</font>
 						</TextArea>
-						<TextArea fx:id="ta_answear4" layoutX="80.0" layoutY="200.0" prefHeight="20.0" prefWidth="553.0" promptText="Odpowiedź nr 4">
+						<TextArea fx:id="ta_answear4" layoutX="260.0" layoutY="161.0" prefHeight="24.0" prefWidth="543.0" promptText="Odpowiedź nr 4">
 							<font>
 								<Font size="10.0" />
 							</font>
 						</TextArea>
-						<TextField fx:id="tf_correctAnswear" alignment="CENTER" disable="true" editable="false" layoutX="421.0" layoutY="4.0" prefHeight="25.0" prefWidth="50.0" promptText="..." />
-						<RadioButton fx:id="rb_answear1" layoutX="642.0" layoutY="89.0" mnemonicParsing="false">
-							<toggleGroup>
+						<TextField fx:id="tf_correctAnswear" alignment="CENTER" disable="true" editable="false" layoutX="98.0" layoutY="87.0" prefHeight="27.0" prefWidth="50.0" promptText="..." />
+						<RadioButton fx:id="rb_answear1" layoutX="230.0" layoutY="55.0" mnemonicParsing="false">
+                     <toggleGroup>
 								<ToggleGroup fx:id="odpowiedzi" />
-							</toggleGroup>
+                     </toggleGroup>
 						</RadioButton>
-						<RadioButton fx:id="rb_answear4" layoutX="642.0" layoutY="209.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
-						<RadioButton fx:id="rb_answear3" layoutX="642.0" layoutY="169.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
-						<RadioButton fx:id="rb_answear2" layoutX="642.0" layoutY="129.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
-						<RadioButton fx:id="rb_answearFalse" disable="true" layoutX="642.0" layoutY="49.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" visible="false" />
-						<Button fx:id="btn_newQuestion" layoutX="699.0" layoutY="40.0" mnemonicParsing="false" onAction="#actionQuestionSave" prefHeight="34.0" prefWidth="92.0" text="Dodaj nowe" />
-						<Button fx:id="btn_questionEditSave" layoutX="699.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionQuestionEditSave" prefHeight="34.0" prefWidth="92.0" text="Zapisz zmiany" />
-						<Button fx:id="btn_questionFilter" layoutX="699.0" layoutY="120.0" mnemonicParsing="false" onAction="#actionQuestionFilter" prefHeight="34.0" prefWidth="92.0" text="Filtruj" />
-						<Button fx:id="btn_questionCancel" layoutX="699.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionQuestionCancel" prefHeight="34.0" prefWidth="92.0" text="Anuluj" />
-						<Label alignment="CENTER" layoutY="6.0" prefHeight="20.0" prefWidth="70.0" text="ID" textAlignment="CENTER">
+						<RadioButton fx:id="rb_answear2" layoutX="230.0" layoutY="92.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
+						<RadioButton fx:id="rb_answear3" layoutX="230.0" layoutY="129.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
+						<RadioButton fx:id="rb_answear4" layoutX="230.0" layoutY="166.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" />
+						<RadioButton fx:id="rb_answearFalse" disable="true" layoutX="230.0" layoutY="18.0" mnemonicParsing="false" toggleGroup="$odpowiedzi" visible="false" />
+						<Button fx:id="btn_newQuestion" layoutX="810.0" layoutY="53.0" mnemonicParsing="false" onAction="#actionQuestionSave" prefHeight="27.0" prefWidth="92.0" text="Dodaj nowe" />
+						<Button fx:id="btn_questionEditSave" layoutX="810.0" layoutY="90.0" mnemonicParsing="false" onAction="#actionQuestionEditSave" prefHeight="27.0" prefWidth="92.0" text="Zapisz zmiany" />
+						<Button fx:id="btn_questionFilter" layoutX="810.0" layoutY="127.0" mnemonicParsing="false" onAction="#actionQuestionFilter" prefHeight="27.0" prefWidth="92.0" text="Filtruj" />
+						<Button fx:id="btn_questionCancel" layoutX="810.0" layoutY="164.0" mnemonicParsing="false" onAction="#actionQuestionCancel" prefHeight="27.0" prefWidth="92.0" text="Anuluj" />
+						<Label layoutX="10.0" layoutY="13.0" prefHeight="27.0" prefWidth="50.0" text="ID" textAlignment="CENTER">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutX="163.0" layoutY="6.0" prefHeight="20.0" prefWidth="40.0" text="Język">
+						<Label layoutX="10.0" layoutY="50.0" prefHeight="27.0" prefWidth="50.0" text="Język">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutX="321.0" layoutY="6.0" prefHeight="20.0" prefWidth="90.0" text="Prawidłowa">
+						<Label layoutX="10.0" layoutY="87.0" prefHeight="27.0" prefWidth="90.0" text="Prawidłowa">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutX="563.0" layoutY="6.0" prefHeight="20.0" prefWidth="70.0" text="Czas">
+						<Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="124.0" prefHeight="27.0" prefWidth="150.0" text="Data edycji:">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutY="50.0" prefHeight="20.0" prefWidth="70.0" text="Treść">
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="13.0" prefHeight="27.0" prefWidth="70.0" text="Treść">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutY="90.0" prefHeight="20.0" prefWidth="70.0" text="Odp 1">
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="50.0" prefHeight="27.0" prefWidth="70.0" text="Odp. 1">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutY="130.0" prefHeight="20.0" prefWidth="70.0" text="Odp 2">
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="87.0" prefHeight="27.0" prefWidth="70.0" text="Odp. 2">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutY="170.0" prefHeight="20.0" prefWidth="70.0" text="Odp 3">
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="124.0" prefHeight="27.0" prefWidth="70.0" text="Odp. 3">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER" layoutY="210.0" prefHeight="20.0" prefWidth="70.0" text="Odp 4">
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="161.0" prefHeight="27.0" prefWidth="70.0" text="Odp. 4">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="tf_questionTimestamp" disable="true" editable="false" layoutX="642.0" layoutY="6.0" promptText="Data edycji" />
+						<TextField fx:id="tf_questionTimestamp" alignment="CENTER" disable="true" editable="false" layoutY="161.0" prefHeight="27.0" prefWidth="150.0" promptText="Data edycji" />
+                  <Separator layoutX="-14.0" layoutY="3.0" prefHeight="3.0" prefWidth="923.0" />
 					</children>
 				</AnchorPane>
 				<AnchorPane fx:id="tbl_filter1" layoutX="14.0" layoutY="128.0" prefHeight="77.0" prefWidth="901.0" visible="false">
