@@ -47,12 +47,14 @@ public class LoginController {
 	static String name;
 	Connection db;
 	static String rola;
+	static String login;
 
 	@FXML
 	void actionKeyLogin(KeyEvent event) throws SQLException {
 		if (flag == false) {
 			pf_pass.setText(tf_pass.getText());
 		}
+		login = tf_login.getText();
 		Statement stmt = db.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT rola FROM uzytkownicy WHERE login = '" + tf_login.getText() + "' AND haslo = '" + pf_pass.getText() + "';");
 		System.out.println("SELECT rola FROM uzytkownicy WHERE login = '" + tf_login.getText() + "' AND haslo = '" + pf_pass.getText() + "';");

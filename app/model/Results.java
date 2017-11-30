@@ -9,6 +9,8 @@ public class Results {
 	private Integer wynik;
 	private String czas;
 
+	private Integer liczba_testow;
+
 	private Users user = new Users();
 
 	public Results(String login, String imie, String nazwisko, String grupa, Integer id_wynik, String jezyk, Integer liczba_pytan, Integer wynik, String czas) {
@@ -24,9 +26,10 @@ public class Results {
 		user.setGrupa(grupa);
 		user.setLogin(login);
 	}
-	
-	public Results(String grupa, String jezyk, Integer liczba_pytan, Integer wynik) {
+
+	public Results(String grupa, String jezyk, Integer liczba_testow, Integer liczba_pytan, Integer wynik) {
 		user.setGrupa(grupa);
+		this.liczba_testow = liczba_testow;
 		this.jezyk = jezyk;
 		this.liczba_pytan = liczba_pytan;
 		this.wynik = wynik;
@@ -86,6 +89,14 @@ public class Results {
 
 	public void setUser(Users user) {
 		this.user = user;
+	}
+
+	public Integer getLiczba_testow() {
+		return liczba_testow;
+	}
+
+	public void setLiczba_testow(Integer liczba_testow) {
+		this.liczba_testow = liczba_testow;
 	}
 
 	@Override

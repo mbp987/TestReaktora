@@ -12,115 +12,151 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="user_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserController">
+<AnchorPane fx:id="user_view" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0"
+	prefWidth="952.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="app.controller.UserController">
 	<children>
-		<Label layoutX="37.0" layoutY="14.0" prefHeight="23.0" prefWidth="229.0" text="Witaj w części testowej!">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <CheckBox fx:id="cb_bazy" layoutX="37.0" layoutY="113.0" mnemonicParsing="false" text="Bazy danych">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="cb_git" layoutX="37.0" layoutY="154.0" mnemonicParsing="false" text="Git">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="cb_python" layoutX="177.0" layoutY="113.0" mnemonicParsing="false" text="Python">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="cb_front" layoutX="177.0" layoutY="154.0" mnemonicParsing="false" text="Front-end">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="cb_java" layoutX="316.0" layoutY="113.0" mnemonicParsing="false" text="Java">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="cb_spring" layoutX="316.0" layoutY="154.0" mnemonicParsing="false" text="Spring">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <Separator layoutY="48.0" prefHeight="11.0" prefWidth="952.0" />
-      <ImageView fitHeight="97.0" fitWidth="95.0" layoutX="843.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../W_FX5/img/logo.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="37.0" layoutY="61.0" prefHeight="42.0" prefWidth="485.0" text="Zaznacz jedną lub więcej kategorii testu:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="521.0" layoutY="61.0" prefHeight="42.0" prefWidth="195.0" text="Wybierz liczbę pytań:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Separator layoutY="204.0" prefHeight="11.0" prefWidth="952.0" />
-      <RadioButton fx:id="rb_odp1" layoutX="140.0" layoutY="381.0" mnemonicParsing="false" text="a) ">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <toggleGroup>
-            <ToggleGroup fx:id="odp" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="rb_odp2" layoutX="140.0" layoutY="429.0" mnemonicParsing="false" text="b)" toggleGroup="$odp">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="rb_odp3" layoutX="140.0" layoutY="478.0" mnemonicParsing="false" text="c)" toggleGroup="$odp">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="rb_odp4" layoutX="140.0" layoutY="527.0" mnemonicParsing="false" text="d)" toggleGroup="$odp">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </RadioButton>
-      <Label fx:id="l_nrpytania" layoutX="59.0" layoutY="247.0" prefHeight="106.0" prefWidth="67.0" text="Numer pytania" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="l_tresc" layoutX="154.0" layoutY="247.0" prefHeight="106.0" prefWidth="683.0" text="Treść pytania" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="l_odp1" layoutX="189.0" layoutY="381.0" prefHeight="19.0" prefWidth="716.0" text="Label">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="l_odp2" layoutX="189.0" layoutY="429.0" prefHeight="19.0" prefWidth="716.0" text="Label">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="l_odp3" layoutX="189.0" layoutY="478.0" prefHeight="19.0" prefWidth="716.0" text="Label">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="l_odp4" layoutX="189.0" layoutY="527.0" prefHeight="19.0" prefWidth="716.0" text="Label">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Button fx:id="btn_next" layoutX="399.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#nextQuest" prefHeight="42.0" prefWidth="215.0" text="Następne pytanie" />
-      <Button fx:id="btn_exit" layoutX="858.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#exitTest" text="Wyjście" />
-      <Button fx:id="btn_start" layoutX="398.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#startTest" prefHeight="42.0" prefWidth="215.0" text="Rozpocznij test..." />
-      <Spinner fx:id="spin_liczba" editable="true" layoutX="522.0" layoutY="109.0" prefHeight="27.0" prefWidth="150.0" />
+		<Label layoutX="37.0" layoutY="14.0" prefHeight="23.0"
+			prefWidth="229.0" text="Witaj w części testowej!">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</Label>
+		<CheckBox fx:id="cb_bazy" layoutX="37.0" layoutY="113.0"
+			mnemonicParsing="false" text="Bazy danych">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<CheckBox fx:id="cb_git" layoutX="37.0" layoutY="154.0"
+			mnemonicParsing="false" text="Git">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<CheckBox fx:id="cb_python" layoutX="177.0" layoutY="113.0"
+			mnemonicParsing="false" text="Python">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<CheckBox fx:id="cb_front" layoutX="177.0" layoutY="154.0"
+			mnemonicParsing="false" text="Front-end">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<CheckBox fx:id="cb_java" layoutX="316.0" layoutY="113.0"
+			mnemonicParsing="false" text="Java">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<CheckBox fx:id="cb_spring" layoutX="316.0" layoutY="154.0"
+			mnemonicParsing="false" text="Spring">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</CheckBox>
+		<Separator layoutY="48.0" prefHeight="11.0" prefWidth="952.0" />
+		<ImageView fitHeight="97.0" fitWidth="95.0" layoutX="843.0"
+			layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../../../W_FX5/img/logo.png" />
+			</image>
+		</ImageView>
+		<Label layoutX="37.0" layoutY="61.0" prefHeight="42.0"
+			prefWidth="485.0" text="Zaznacz jedną lub więcej kategorii testu:">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label layoutX="521.0" layoutY="61.0" prefHeight="42.0"
+			prefWidth="195.0" text="Wybierz liczbę pytań:">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Separator layoutY="204.0" prefHeight="11.0" prefWidth="952.0" />
+		<RadioButton fx:id="rb_odp1" layoutX="140.0" layoutY="381.0"
+			mnemonicParsing="false" text="a) ">
+			<font>
+				<Font size="14.0" />
+			</font>
+			<toggleGroup>
+				<ToggleGroup fx:id="odp" />
+			</toggleGroup>
+		</RadioButton>
+		<RadioButton fx:id="rb_odp2" layoutX="140.0" layoutY="429.0"
+			mnemonicParsing="false" text="b)" toggleGroup="$odp">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</RadioButton>
+		<RadioButton fx:id="rb_odp3" layoutX="140.0" layoutY="478.0"
+			mnemonicParsing="false" text="c)" toggleGroup="$odp">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</RadioButton>
+		<RadioButton fx:id="rb_odp4" layoutX="140.0" layoutY="527.0"
+			mnemonicParsing="false" text="d)" toggleGroup="$odp">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</RadioButton>
+		<RadioButton fx:id="rb_false" disable="true" layoutX="139.0"
+			layoutY="333.0" mnemonicParsing="false" toggleGroup="$odp" visible="false">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</RadioButton>
+		<Label fx:id="l_nrpytania" layoutX="37.0" layoutY="215.0"
+			prefHeight="20.0" prefWidth="485.0" text="Pytanie" wrapText="true">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="l_tresc" layoutX="154.0" layoutY="247.0"
+			prefHeight="106.0" prefWidth="683.0" text="Treść pytania" wrapText="true">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="l_odp1" layoutX="189.0" layoutY="381.0"
+			prefHeight="19.0" prefWidth="716.0" text="Label">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="l_odp2" layoutX="189.0" layoutY="429.0"
+			prefHeight="19.0" prefWidth="716.0" text="Label">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="l_odp3" layoutX="189.0" layoutY="478.0"
+			prefHeight="19.0" prefWidth="716.0" text="Label">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label fx:id="l_odp4" layoutX="189.0" layoutY="527.0"
+			prefHeight="19.0" prefWidth="716.0" text="Label">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Button fx:id="btn_start" layoutX="139.0" layoutY="605.0"
+			mnemonicParsing="false" onAction="#startTest" prefHeight="42.0"
+			prefWidth="215.0" text="Rozpocznij test..." />
+		<Button fx:id="btn_next" layoutX="399.0" layoutY="605.0"
+			mnemonicParsing="false" onAction="#nextQuest" prefHeight="42.0"
+			prefWidth="215.0" text="Następne pytanie" />
+		<Button fx:id="btn_exit" layoutX="858.0" layoutY="666.0"
+			mnemonicParsing="false" onMouseClicked="#exitTest" text="Wyjście" />
+		<Spinner fx:id="spin_liczba" layoutX="522.0" layoutY="109.0"
+			prefHeight="27.0" prefWidth="150.0" />
 	</children>
 </AnchorPane>

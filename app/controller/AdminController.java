@@ -451,6 +451,9 @@ public class AdminController {
 	private TableColumn<Results, String> col_resultgroupJezyk;
 
 	@FXML
+	private TableColumn<Results, Integer> col_resultgroupLiczbaTestow;
+
+	@FXML
 	private TableColumn<Results, Integer> col_resultgroupLiczbaPytan;
 
 	@FXML
@@ -1154,7 +1157,7 @@ public class AdminController {
 				jezyk = combo_result_jezyk_filtr.getValue();
 			}
 			// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
-			String sql = "SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
+			String sql = "SELECT grupa, jezyk, count(login) as liczba_testow, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
 			if (!grupa.isEmpty()) {
 				sql += " AND grupa LIKE '" + grupa + "'";
 			}
@@ -1167,7 +1170,7 @@ public class AdminController {
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				Integer wynik = Math.round(rs.getFloat(4) * 100);
-				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), wynik));
 			}
 			tbl_groupResults.setItems(null);
 			tbl_groupResults.setItems(resultsList);
@@ -1227,16 +1230,19 @@ public class AdminController {
 
 	@FXML
 	void actionResultsAllGroups(ActionEvent event) throws SQLException {
+		view_result_details.setVisible(false);
 		combo_result_user_credentials.setValue(null);
 		tbl_userResults.setVisible(false);
 		tbl_groupResults.setVisible(true);
+		lbl_result_table.setVisible(true);
+		lbl_result_table.setText("Œrednie wyniki dla wszystkich grup");
 		view_result_filter.setVisible(false);
 		resultsList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery(
-				"SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) GROUP BY concat(grupa, jezyk)");
+				"SELECT grupa, jezyk, count(login) as liczba_testow, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) GROUP BY concat(grupa, jezyk)");
 		while (rs.next()) {
-			Integer wynik = Math.round(rs.getFloat(4) * 100);
-			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+			Integer wynik = Math.round(rs.getFloat(5) * 100);
+			resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), wynik));
 		}
 		tbl_groupResults.setItems(null);
 		tbl_groupResults.setItems(resultsList);
@@ -1275,6 +1281,7 @@ public class AdminController {
 
 	@FXML
 	void actionResultsGroups(ActionEvent event) {
+		lbl_result_table.setVisible(false);
 		btn_result_show_one_group.setDisable(false);
 		btn_result_show_all_groups.setDisable(false);
 		btn_result_filter_groups.setDisable(false);
@@ -1290,28 +1297,29 @@ public class AdminController {
 
 	@FXML
 	void actionResultsOneGroup(ActionEvent event) throws SQLException {
+		view_result_details.setVisible(false);
 		ResultSet rs;
 		PreparedStatement pstm = null;
 		Results selectedItem = tbl_groupResults.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			lbl_result_table.setVisible(true);
 			lbl_result_table.setText("Œrednie wyniki dla grupy " + selectedItem.getUser().getGrupa());
+			String user = selectedItem.getUser().getGrupa();
 			// Budowa zapytania do filtrowania uï¿½ytkownikï¿½w:
-			String sql = "SELECT grupa, jezyk, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
-				sql += " AND grupa LIKE '" + selectedItem.getUser().getGrupa() + "' ";
+			String sql = "SELECT grupa, jezyk, count(login) as liczba_testow, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
+			sql += " AND grupa LIKE '" + selectedItem.getUser().getGrupa() + "' ";
 			sql += "GROUP BY concat(grupa, jezyk)";
 			System.out.println(sql);
 			pstm = conn.prepareStatement(sql);
 			rs = conn.createStatement().executeQuery(sql);
 			resultsList.clear();
 			while (rs.next()) {
-				Integer wynik = Math.round(rs.getFloat(4) * 100);
-				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), wynik));
+				Integer wynik = Math.round(rs.getFloat(5) * 100);
+				resultsList.add(new Results(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), wynik));
 			}
 			tbl_groupResults.setItems(null);
 			tbl_groupResults.setItems(resultsList);
 		}
-
 	}
 
 	@FXML
@@ -1552,6 +1560,7 @@ public class AdminController {
 
 	@FXML
 	void actionResultsUsers(ActionEvent event) {
+		lbl_result_table.setVisible(false);
 		btn_result_show_one_group.setDisable(true);
 		btn_result_show_all_groups.setDisable(true);
 		btn_result_filter_groups.setDisable(true);
@@ -1743,6 +1752,7 @@ public class AdminController {
 		// Tabela wyników grup:
 		col_resultgroupGrupa.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUser().getGrupa()));
 		col_resultgroupJezyk.setCellValueFactory(new PropertyValueFactory<Results, String>("jezyk"));
+		col_resultgroupLiczbaTestow.setCellValueFactory(new PropertyValueFactory<Results, Integer>("liczba_testow"));
 		col_resultgroupLiczbaPytan.setCellValueFactory(new PropertyValueFactory<Results, Integer>("liczba_pytan"));
 		col_resultgroupSredniWynik.setCellValueFactory(new PropertyValueFactory<Results, Integer>("wynik"));
 		System.out.println("initializing completed!");

@@ -37,4 +37,21 @@ public class Util {
 		return out.toString();
 	}
 
+	public static final String sqlconvert(String str) {
+		if (str == null) {
+			return null;
+		}
+
+		char[] c = str.toCharArray();
+		StringBuilder out = new StringBuilder();
+		for (int i = 0; i < c.length; i++) {
+			if (c[i] == '"' && i > 0 && i < c.length - 1) {
+				out.append("\"\"");
+			} else {
+				out.append(c[i]);
+			}
+		}
+		return out.toString();
+	}
+
 }
