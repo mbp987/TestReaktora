@@ -1614,7 +1614,7 @@ public class AdminController {
 		combo_result_jezyk_filtr.setItems(jezyk);
 		// Inicjalizacja combo_result_user_credentials:
 		rs = conn.createStatement()
-				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) " + "AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
+				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
 		List<String> credentialsTempList = new ArrayList<>();
 		credentialsTempList.add("");
 		while (rs.next()) {
