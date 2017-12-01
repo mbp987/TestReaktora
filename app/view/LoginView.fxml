@@ -8,7 +8,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="login_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane fx:id="login_window" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="256.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/9.0.1"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
 	<children>
 		<TextField fx:id="tf_login" alignment="CENTER" layoutX="284.0" layoutY="66.0" />
 		<PasswordField fx:id="pf_pass" alignment="CENTER" layoutX="284.0" layoutY="139.0" />

@@ -7,14 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import app.database.DBConnector;
 import app.model.Questions;
 import app.model.Results;
 import app.model.Users;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +29,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -44,7 +41,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import util.Util;
 
 public class AdminController {
@@ -590,9 +586,9 @@ public class AdminController {
 					rs.next();
 					if (rs.getString(1) != null) {
 						Alert view_error = new Alert(AlertType.ERROR);
-						view_error.setContentText("Taki login juÅ¼ istnieje w bazie - podaj inny login");
-						view_error.setHeaderText("BÅ‚Ä…d!");
-						view_error.setTitle("Okno bÅ‚Ä™du");
+						view_error.setContentText("Taki login ju¿ istnieje w bazie - podaj inny login");
+						view_error.setHeaderText("B³¹d!");
+						view_error.setTitle("Okno b³êdu");
 						view_error.showAndWait();
 						break;
 					}
@@ -601,8 +597,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie wpisano loginu");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -611,8 +607,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie wpisano hasÅ‚a");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -621,8 +617,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano imienia");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -631,8 +627,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano imienia");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -641,8 +637,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano grupy");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -651,8 +647,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie wybrano roli");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -825,9 +821,9 @@ public class AdminController {
 				jezyk = combo_questionLang.getValue();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wpisano jÄ™zyka");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setContentText("Nie wpisano jêzyka");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -835,9 +831,9 @@ public class AdminController {
 				tresc = ta_questionText.getText();
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
-				view_error.setContentText("Nie wpisano treÅ›ci pytania");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setContentText("Nie wpisano treœci pytania");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -846,8 +842,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano pierwszej odpowiedzi");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -856,8 +852,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano drugiej odpowiedzi");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -866,8 +862,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano trzeciej odpowiedzi");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -876,8 +872,8 @@ public class AdminController {
 			} else {
 				Alert view_error = new Alert(AlertType.ERROR);
 				view_error.setContentText("Nie podano czwartej odpowiedzi");
-				view_error.setHeaderText("BÅ‚Ä…d!");
-				view_error.setTitle("Okno bÅ‚Ä™du");
+				view_error.setHeaderText("B³¹d!");
+				view_error.setTitle("Okno b³êdu");
 				view_error.showAndWait();
 				break;
 			}
@@ -897,9 +893,9 @@ public class AdminController {
 					tf_correctAnswear.setText("4");
 				} else {
 					Alert view_error = new Alert(AlertType.ERROR);
-					view_error.setContentText("Nie wybraï¿½eï¿½ ï¿½adnej prawidï¿½owej odpowiedzi");
-					view_error.setHeaderText("Bï¿½ï¿½d!");
-					view_error.setTitle("Okno bï¿½ï¿½du");
+					view_error.setContentText("Nie wybra³eœ ¿adnej prawid³owej odpowiedzi");
+					view_error.setHeaderText("B³¹d!");
+					view_error.setTitle("Okno b³êdu");
 					view_error.showAndWait();
 					break;
 				}
@@ -986,7 +982,7 @@ public class AdminController {
 		if (!Objects.isNull(ta_answear4)) {
 			odp4 = Util.convert(ta_answear4.getText());
 		}
-		// Budowa zapytania do filtrowania uÅ¼ytkownikÃ³w:
+		// Budowa zapytania do filtrowania u¿ytkowników:
 		String sql = "SELECT * FROM pytania WHERE 1 = 1";
 		if (!jezyk.isEmpty()) {
 			sql += " AND jezyk LIKE '" + jezyk + "'";
@@ -1017,7 +1013,7 @@ public class AdminController {
 		tbl_questions.setItems(questionsList);
 	}
 
-	// Metoda usuwajï¿½ca zaznaczone w tabeli pytanie
+	// Metoda usuwaj¹ca zaznaczone w tabeli pytanie
 	@FXML
 	void actionDeleteQuestion(ActionEvent event) throws SQLException {
 		tbl_questionEdit.setVisible(false);
@@ -1030,14 +1026,14 @@ public class AdminController {
 			actionShowQuestions(event);
 		} else {
 			Alert view_error = new Alert(AlertType.ERROR);
-			view_error.setContentText("Nie wybrano Å¼adnego wiersza w tabeli do usuniÄ™cia, najpierw wybierz wiersz do usuniÄ™cia");
-			view_error.setHeaderText("BÅ‚Ä…d!");
-			view_error.setTitle("Okno bÅ‚Ä™du");
+			view_error.setContentText("Nie wybrano ¿adnego wiersza w tabeli do usuniêcia, najpierw wybierz wiersz do usuniêcia");
+			view_error.setHeaderText("B³¹d!");
+			view_error.setTitle("Okno b³êdu");
 			view_error.showAndWait();
 		}
 	}
 
-	// Metoda zatwierdzajÄ…ca zmiany w pytaniu WPROWADZONE W TABELI I
+	// Metoda zatwierdzaj¹ca zmiany w pytaniu WPROWADZONE W TABELI I
 	// ZATWIERDZONE ENTEREM
 	@FXML
 	void actionCommitQuestion(ActionEvent event) throws SQLException {
@@ -1106,7 +1102,7 @@ public class AdminController {
 		actionShowQuestions(event);
 	}
 
-	// Metoda anulujÄ…ca wprowadzanie zmian/dodawanie pytania
+	// Metoda anuluj¹ca wprowadzanie zmian/dodawanie pytania
 	@FXML
 	void actionQuestionCancel(ActionEvent event) throws SQLException {
 		tbl_questionEdit.setVisible(true);
@@ -1235,7 +1231,7 @@ public class AdminController {
 		tbl_userResults.setVisible(false);
 		tbl_groupResults.setVisible(true);
 		lbl_result_table.setVisible(true);
-		lbl_result_table.setText("Åšrednie wyniki dla wszystkich grup");
+		lbl_result_table.setText("Œrednie wyniki dla wszystkich grup");
 		view_result_filter.setVisible(false);
 		resultsList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery(
@@ -1255,7 +1251,7 @@ public class AdminController {
 		view_result_details.setVisible(false);
 		view_result_filter.setVisible(false);
 		lbl_result_table.setVisible(true);
-		lbl_result_table.setText("Wyniki dla wszystkich uÅ¼ytkownikÃ³w");
+		lbl_result_table.setText("Wyniki dla wszystkich u¿ytkowników");
 		resultsList = FXCollections.observableArrayList();
 		ResultSet rs = conn.createStatement().executeQuery(
 				"select login, imie, nazwisko, grupa, id_wynik, jezyk, liczba_pytan, wynik, wyniki.czas FROM wyniki LEFT JOIN uzytkownicy USING (login)");
@@ -1303,9 +1299,9 @@ public class AdminController {
 		Results selectedItem = tbl_groupResults.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			lbl_result_table.setVisible(true);
-			lbl_result_table.setText("ï¿½rednie wyniki dla grupy " + selectedItem.getUser().getGrupa());
+			lbl_result_table.setText("Œrednie wyniki dla grupy " + selectedItem.getUser().getGrupa());
 			String user = selectedItem.getUser().getGrupa();
-			// Budowa zapytania do filtrowania uÅ¼ytkownikÃ³w:
+			// Budowa zapytania do filtrowania u¿ytkowników:
 			String sql = "SELECT grupa, jezyk, count(login) as liczba_testow, avg(liczba_pytan) as liczba_pytan, avg(wynik) as wynik FROM wyniki LEFT JOIN uzytkownicy USING (login) WHERE 1 = 1";
 			sql += " AND grupa LIKE '" + selectedItem.getUser().getGrupa() + "' ";
 			sql += "GROUP BY concat(grupa, jezyk)";
@@ -1346,17 +1342,17 @@ public class AdminController {
 			}
 			view_result_details.setVisible(true);
 			view_result_filter.setVisible(false);
-			lbl_result_table.setText("ï¿½rednie wyniki dla " + imie + " " + nazwisko);
+			lbl_result_table.setText("Œrednie wyniki dla " + imie + " " + nazwisko);
 			combo_result_user_credentials.setValue(null);
 		} else if (selectedItem != null) {
 			flag = true;
 			view_result_details.setVisible(true);
 			view_result_filter.setVisible(false);
-			lbl_result_table.setText("ï¿½rednie wyniki dla " + selectedItem.getUser().getImie() + " " + selectedItem.getUser().getNazwisko());
+			lbl_result_table.setText("Œrednie wyniki dla " + selectedItem.getUser().getImie() + " " + selectedItem.getUser().getNazwisko());
 			user = selectedItem.getLogin();
 		}
 		if (flag) {
-			// Liczba testï¿½w / wszystkie
+			// Liczba testów / wszystkie
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1365,7 +1361,7 @@ public class AdminController {
 					user_all_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / wszystkie
+			// Œrednia liczba pytañ / wszystkie
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1374,7 +1370,7 @@ public class AdminController {
 					user_all_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / wszystkie
+			// Œrednia % poprawnych / wszystkie
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1384,7 +1380,7 @@ public class AdminController {
 					user_all_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / Python
+			// Liczba testïów / Python
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1393,7 +1389,7 @@ public class AdminController {
 					user_Python_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / Python
+			// Œrednia liczba pytañ / Python
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1402,7 +1398,7 @@ public class AdminController {
 					user_Python_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / Python
+			// Œrednia % poprawnych / Python
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Python' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1412,7 +1408,7 @@ public class AdminController {
 					user_Python_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / Java
+			// Liczba testów / Java
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1421,7 +1417,7 @@ public class AdminController {
 					user_Java_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / Java
+			// Œrednia liczba pytañ / Java
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1430,7 +1426,7 @@ public class AdminController {
 					user_Java_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / Java
+			// Œrednia % poprawnych / Java
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Java' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1440,7 +1436,7 @@ public class AdminController {
 					user_Java_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / BD
+			// Liczba testów / BD
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1449,7 +1445,7 @@ public class AdminController {
 					user_BD_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / BD
+			// Œrednia liczba pytañ / BD
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1458,7 +1454,7 @@ public class AdminController {
 					user_BD_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / BD
+			// Œrednia % poprawnych / BD
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'BD' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1468,7 +1464,7 @@ public class AdminController {
 					user_BD_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / Git
+			// Liczba testów / Git
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1477,7 +1473,7 @@ public class AdminController {
 					user_Git_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / Git
+			// Œrednia liczba pytañ / Git
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1486,7 +1482,7 @@ public class AdminController {
 					user_Git_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / Git
+			// Œrednia % poprawnych / Git
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Git' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1496,7 +1492,7 @@ public class AdminController {
 					user_Git_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / FE
+			// Liczba testów / FE
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1505,7 +1501,7 @@ public class AdminController {
 					user_FE_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / FE
+			// Œrednia liczba pytañ / FE
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1514,7 +1510,7 @@ public class AdminController {
 					user_FE_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / FE
+			// Œrednia % poprawnych / FE
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'FE' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1524,7 +1520,7 @@ public class AdminController {
 					user_FE_dobrych.clear();
 				}
 			}
-			// Liczba testï¿½w / Spring
+			// Liczba testów / Spring
 			rs = conn.createStatement().executeQuery("select count(id_wynik) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1533,7 +1529,7 @@ public class AdminController {
 					user_Spring_liczba_testow.clear();
 				}
 			}
-			// ï¿½rednia liczba pytaï¿½ / Spring
+			// Œednia liczba pytañ / Spring
 			rs = conn.createStatement().executeQuery("select avg(liczba_pytan) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getInt(1) != 0) {
@@ -1542,7 +1538,7 @@ public class AdminController {
 					user_Spring_liczba_pytan.clear();
 				}
 			}
-			// ï¿½rednia % poprawnych / Spring
+			// Œrednia % poprawnych / Spring
 			rs = conn.createStatement().executeQuery("select avg(wynik) from wyniki where jezyk = 'Spring' AND login = '" + user + "'");
 			while (rs.next()) {
 				if (rs.getDouble(1) != 0) {
@@ -1617,8 +1613,8 @@ public class AdminController {
 		jezyk = FXCollections.observableArrayList(jezykTempList);
 		combo_result_jezyk_filtr.setItems(jezyk);
 		// Inicjalizacja combo_result_user_credentials:
-//		rs = conn.createStatement()
-//				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
+		rs = conn.createStatement()
+				.executeQuery("SELECT CONCAT(nazwisko, ' ', imie) " + "AS credentials, login FROM uzytkownicy GROUP BY credentials ORDER BY credentials");
 		List<String> credentialsTempList = new ArrayList<>();
 		credentialsTempList.add("");
 		while (rs.next()) {
