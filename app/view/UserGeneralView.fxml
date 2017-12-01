@@ -125,7 +125,7 @@
 		<Spinner fx:id="spin_liczba" layoutX="522.0" layoutY="109.0" prefHeight="27.0" prefWidth="150.0" />
       <ImageView fitHeight="77.0" fitWidth="90.0" layoutX="858.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../W_FX5/img/logo.png" />
+            <Image url="@../img/logo_reaktor.png" />
          </image>
       </ImageView>
 	</children>

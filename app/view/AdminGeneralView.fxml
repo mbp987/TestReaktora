@@ -432,7 +432,7 @@
 		</AnchorPane>
       <ImageView fitHeight="77.0" fitWidth="90.0" layoutX="836.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../W_FX5/img/logo.png" />
+            <Image url="@../img/logo_reaktor.png" />
          </image>
       </ImageView>
 	</children>

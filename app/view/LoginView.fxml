@@ -19,7 +19,7 @@
 		<Button fx:id="btn_show" layoutX="467.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#showPass" text="pokaż" />
       <ImageView fitHeight="204.0" fitWidth="208.0" layoutX="28.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../W_FX5/img/logo.png" />
+            <Image url="@../img/logo_reaktor.png" />
          </image>
       </ImageView>
 	</children>
