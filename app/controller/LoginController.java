@@ -81,7 +81,7 @@ public class LoginController {
 					Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/UserGeneralView.fxml"));
 					Scene scene = new Scene(parent);
 					stage.setScene(scene);
-					stage.setTitle("Panel u¿ytkownika");
+					stage.setTitle("Panel uÅ¼ytkownika");
 					stage.show();
 					((Node) (event.getSource())).getScene().getWindow().hide();
 				} catch (Exception e) {
@@ -90,9 +90,9 @@ public class LoginController {
 			}
 		} else {
 			Alert a_help = new Alert(AlertType.ERROR);
-			a_help.setHeaderText("B³¹d logowania");
-			a_help.setContentText("B³êdne has³o lub login");
-			a_help.setTitle("Nale¿y podaæ poprawne dane logowania");
+			a_help.setHeaderText("BÅ‚Ä…d logowania");
+			a_help.setContentText("BÅ‚Ä™dne hasÅ‚o lub login");
+			a_help.setTitle("NaleÅ¼y podaÄ‡ poprawne dane logowania");
 			a_help.showAndWait();
 		}
 	}
@@ -126,7 +126,7 @@ public class LoginController {
 					Parent parent = (Parent) FXMLLoader.load(getClass().getResource("/app/view/UserGeneralView.fxml"));
 					Scene scene = new Scene(parent);
 					stage.setScene(scene);
-					stage.setTitle("Panel uï¿½ytkownika");
+					stage.setTitle("Panel uÅ¼ytkownika");
 					stage.show();
 					((Node) (event.getSource())).getScene().getWindow().hide();
 				} catch (Exception e) {
@@ -135,9 +135,9 @@ public class LoginController {
 			}
 		} else {
 			Alert a_help = new Alert(AlertType.ERROR);
-			a_help.setHeaderText("B³¹d logowania");
-			a_help.setContentText("B³êdne has³o lub login");
-			a_help.setTitle("Nale¿y podaæ poprawne dane logowania");
+			a_help.setHeaderText("BÅ‚Ä…d logowania");
+			a_help.setContentText("BÅ‚Ä™dne hasÅ‚o lub login");
+			a_help.setTitle("NaleÅ¼y podaÄ‡ poprawne dane logowania");
 			a_help.showAndWait();
 		}
 	}
@@ -164,7 +164,7 @@ public class LoginController {
 
 	public void initialize() {
 		db = DBConnector.getConnection();
-		// Nas³uchiwanie Entera w polu z has³em aby zalogowaæ
+		// NasÅ‚uchiwanie Entera w polu z hasÅ‚em aby zalogowaÄ‡
 		tf_pass.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -172,7 +172,7 @@ public class LoginController {
 					try {
 						actionKeyLogin(event);
 					} catch (SQLException e) {
-						System.out.println("B³¹d rzutowania");
+						System.out.println("BÅ‚Ä…d rzutowania");
 					}
 				}
 			}
@@ -184,7 +184,7 @@ public class LoginController {
 					try {
 						actionKeyLogin(event);
 					} catch (SQLException e) {
-						System.out.println("B³¹d rzutowania");
+						System.out.println("BÅ‚Ä…d rzutowania");
 					}
 				}
 			}
