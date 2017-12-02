@@ -38,7 +38,7 @@ select * from pytania;
 CREATE TABLE wyniki (
     id_wynik INT AUTO_INCREMENT PRIMARY KEY,
     login VARCHAR(30),
-    jezyk VARCHAR(30),
+    jezyk VARCHAR(50),
     liczba_pytan INT,
     wynik FLOAT,
     czas TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
